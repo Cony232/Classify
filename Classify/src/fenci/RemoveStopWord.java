@@ -1,0 +1,80 @@
+package fenci;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import comm.String2Txt;
+import comm.Txt2String;
+
+
+
+public class RemoveStopWord {
+	public static List<String> removeWord(List<String> endList) {
+		List<String> endList2=new ArrayList<String>();//分词和去停用词过后的
+		System.out.println("开始读取停用词表");
+		BufferedReader StopWordFileBr;
+		try {
+			StopWordFileBr = new BufferedReader(new InputStreamReader(new FileInputStream(new File("file/stopword.txt")), "utf-8"));
+			System.out.println("结束读取停用词表");
+			Set<String> stopWordSet = new HashSet<String>();
+			stopWordSet = new HashSet<String>();
+			String stopWord = null;
+			for (; (stopWord = StopWordFileBr.readLine()) != null;) {
+				stopWordSet.add(stopWord);
+			}
+			for(int i=0;i<endList.size();i++){
+				String[] termlist=endList.get(i).split(" ");
+				// 除去停用词
+				// System.out.println(Arrays.asList(termlist));  
+				for (int j = 0; j < termlist.length; j++) {
+					//System.out.println(j+":"+termlist[j]);
+					if (stopWordSet.contains(termlist[j])) {
+						termlist[j]="";
+						//System.out.println(j+":"+termlist[j]);
+					}	
+				}	
+				StringBuffer sb = new StringBuffer();
+				for(int n = 0; n < termlist.length; n++){
+					sb. append(termlist[n]);
+					if(!termlist[n].equals("")){
+						sb. append(" ");
+					}	
+				}
+				String s = sb.toString();
+				endList2.add(s);
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		//System.out.println(s);
+
+		//for (String string : endList) {
+		//	System.out.println(string);
+		//}
+		//for (String string : endList2) {
+		//	System.out.println(string);
+		//}
+		System.out.println("去停用词结束");
+		return endList2;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\essay.txt");
+		List<String> endList=removeWord(txtList);
+		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\essay.txt", endList);
+	}
+
+}
