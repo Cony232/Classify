@@ -28,28 +28,69 @@ public class Funcation_DF {
 		}
 		return hashMap;	
 	}
+	
+	public static HashMap<String, int[]> calculate_B(List<String> txtList,HashMap<String, int[]> map,int i) {  
+		for (String string : txtList) {
+			String[] termlist=string.split(":");
+			int[] num=new int[18];
+			//String str=String.valueOf(num);
+			
+				if (!map.containsKey(termlist[0])) {
+					num[i-1]=Integer.parseInt(termlist[1]);
+					map.put(termlist[0],num);
+				} else {
+					int[] num2= map.get(termlist[0]);
+					num2[i-1]=Integer.parseInt(termlist[1])+num2[i-1];
+					map.put(termlist[0], num2);
+				}
+			}
+		return map;	
+	}
+	
 	public static void main(String[] args)  {
-		String a="a a";
-		String b="a c d";
-		List<String> list=new ArrayList<String>();
-		list.add(a);
-		list.add(b);
-		HashMap<String, Integer> temp=df(list);
-		Iterator iterator = temp.entrySet().iterator();
+//		String a="a a";
+//		String b="a c d";
+//		List<String> list=new ArrayList<String>();
+//		list.add(a);
+//		list.add(b);
+//		HashMap<String, Integer> temp=df(list);
+//		Iterator iterator = temp.entrySet().iterator();
+//		while(iterator.hasNext()){
+//			Entry entry = (Entry) iterator.next();  
+//			System.out.println(entry.getKey()+":"+entry.getValue());      // 获取key
+//		
+//		} 
+		String a="a:1";
+		String b="a:2";
+		String c="b:2";
+		String d="c:2";
+		List<String> list1=new ArrayList<String>();
+		list1.add(a);
+		list1.add(b);
+		list1.add(c);
+		HashMap<String, int[]> map=new HashMap<String, int[]>();
+		//HashMap<String, Integer[]> map=new HashMap<String, Integer[]>();
+		map=calculate_B(list1,map,1);
+		Iterator iterator = map.entrySet().iterator();
 		while(iterator.hasNext()){
 			Entry entry = (Entry) iterator.next();  
-			System.out.println(entry.getKey()+":"+entry.getValue());      // 获取key
+			int[] num=(int[]) entry.getValue();
+			//String str=String.valueOf(entry.getValue());
+			System.out.println(entry.getKey()+":"+Arrays.toString(num));      // 获取key
 		
-		} 
-//		String a="a b a d";
-//		String[] termlist=a.split(" ");
-//		List list=Arrays.asList(termlist);
-//		Set set = new HashSet(list);
-//		String [] rid=(String [])set.toArray(new String[0]);
-//		for (int i = 0; i < rid.length; i++) {
-//			System.out.println(rid[i]);
-//		}
+		}
+		System.out.println("-----------------------");
+		List<String> list2=new ArrayList<String>();
+		list2.add(a);
+		list2.add(d);
+		map=calculate_B(list2,map,2);
+		Iterator iterator2 = map.entrySet().iterator();
+		while(iterator2.hasNext()){
+			Entry entry = (Entry) iterator2.next();  
+			int[] num=(int[]) entry.getValue();
+			//String str=String.valueOf(entry.getValue());
+			System.out.println(entry.getKey()+":"+Arrays.toString(num));      // 获取key
 		
-
+		}
 	}
 }
