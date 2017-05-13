@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import comm.String2Txt;
+import comm.Txt2String;
+
 public class Funcation_DF {
 	public static HashMap<String, Integer> df(List<String> txtList) {  
 		HashMap<String, Integer>  hashMap= new HashMap<String, Integer>();
@@ -47,6 +50,34 @@ public class Funcation_DF {
 		return map;	
 	}
 	
+	public static List<String> Map2List1(HashMap map){
+		Iterator iterator = map.entrySet().iterator();
+		List<String> list=new ArrayList<String>();
+		while(iterator.hasNext()){
+			while(iterator.hasNext()){
+				Entry entry = (Entry) iterator.next(); 
+				String str=entry.getKey()+":"+entry.getValue();
+				list.add(str);      // 锟斤拷取key
+			} 		
+		}
+		return list;
+	}
+	
+	public static List<String> Map2List2(HashMap map){
+		Iterator iterator = map.entrySet().iterator();
+		List<String> list=new ArrayList<String>();
+		while(iterator.hasNext()){
+			while(iterator.hasNext()){
+				Entry entry = (Entry) iterator.next(); 
+				int[] num=(int[]) entry.getValue();
+				String value=Arrays.toString(num);
+				String str=entry.getKey()+":"+value.substring(1, value.length()-1);
+				list.add(str);      // 锟斤拷取key
+			} 		
+		}
+		return list;
+	}
+	
 	public static void main(String[] args)  {
 //		String a="a a";
 //		String b="a c d";
@@ -54,43 +85,69 @@ public class Funcation_DF {
 //		list.add(a);
 //		list.add(b);
 //		HashMap<String, Integer> temp=df(list);
+//		List<String> l=Map2List(temp);
+//		for (String string : l) {
+//			System.out.println(string);
+//		}
 //		Iterator iterator = temp.entrySet().iterator();
 //		while(iterator.hasNext()){
 //			Entry entry = (Entry) iterator.next();  
-//			System.out.println(entry.getKey()+":"+entry.getValue());      // 获取key
+//			System.out.println(entry.getKey()+":"+entry.getValue());      // 锟斤拷取key
 //		
 //		} 
-		String a="a:1";
-		String b="a:2";
-		String c="b:2";
-		String d="c:2";
-		List<String> list1=new ArrayList<String>();
-		list1.add(a);
-		list1.add(b);
-		list1.add(c);
+//		String a="a:1";
+//		String b="a:2";
+//		String c="b:2";
+//		String d="c:2";
+//		List<String> list1=new ArrayList<String>();
+//		list1.add(a);
+//		list1.add(b);
+//		list1.add(c);
+//		HashMap<String, int[]> map=new HashMap<String, int[]>();
+//		//HashMap<String, Integer[]> map=new HashMap<String, Integer[]>();
+//		map=calculate_B(list1,map,1);
+//		List<String> l=Map2List2(map);
+//		for (String string : l) {
+//			System.out.println(string);
+//		}
+//		Iterator iterator = map.entrySet().iterator();
+//		while(iterator.hasNext()){
+//			Entry entry = (Entry) iterator.next();  
+//			int[] num=(int[]) entry.getValue();
+//			//String str=String.valueOf(entry.getValue());
+//			System.out.println(entry.getKey()+":"+Arrays.toString(num));      // 锟斤拷取key
+//		
+//		}
+//		System.out.println("-----------------------");
+//		List<String> list2=new ArrayList<String>();
+//		list2.add(a);
+//		list2.add(d);
+//		map=calculate_B(list2,map,2);
+//		Iterator iterator2 = map.entrySet().iterator();
+//		while(iterator2.hasNext()){
+//			Entry entry = (Entry) iterator2.next();  
+//			int[] num=(int[]) entry.getValue();
+//			//String str=String.valueOf(entry.getValue());
+//			System.out.println(entry.getKey()+":"+Arrays.toString(num));      // 锟斤拷取key
+//		
+//		}
+	
+		
+//		List<String> babyList=Txt2String.readFileByLines("E:\\Classify\\data_jieba_remove\\sports.txt");
+//		HashMap<String, Integer> temp=df(babyList);
+//		List list1=Map2List1(temp);
+//		String2Txt.writeFileByLines("E:\\Classify\\jieba_df\\sports.txt", list1);
+		
+		List<String> babyList=Txt2String.readFileByLines("E:\\Classify\\jieba_df\\baby.txt");
+		List<String> sportsList=Txt2String.readFileByLines("E:\\Classify\\jieba_df\\sports.txt");
 		HashMap<String, int[]> map=new HashMap<String, int[]>();
-		//HashMap<String, Integer[]> map=new HashMap<String, Integer[]>();
-		map=calculate_B(list1,map,1);
-		Iterator iterator = map.entrySet().iterator();
-		while(iterator.hasNext()){
-			Entry entry = (Entry) iterator.next();  
-			int[] num=(int[]) entry.getValue();
-			//String str=String.valueOf(entry.getValue());
-			System.out.println(entry.getKey()+":"+Arrays.toString(num));      // 获取key
-		
+		List<List<String>> txtList=new ArrayList<>();
+		txtList.add(babyList);
+		txtList.add(sportsList);
+		for (int j = 0; j < txtList.size(); j++) {
+			map=calculate_B(txtList.get(j), map, j+1);
 		}
-		System.out.println("-----------------------");
-		List<String> list2=new ArrayList<String>();
-		list2.add(a);
-		list2.add(d);
-		map=calculate_B(list2,map,2);
-		Iterator iterator2 = map.entrySet().iterator();
-		while(iterator2.hasNext()){
-			Entry entry = (Entry) iterator2.next();  
-			int[] num=(int[]) entry.getValue();
-			//String str=String.valueOf(entry.getValue());
-			System.out.println(entry.getKey()+":"+Arrays.toString(num));      // 获取key
-		
-		}
+		List<String> endlist=Map2List2(map);
+		String2Txt.writeFileByLines("E:\\Classify\\jieba_B\\B.txt", endlist);
 	}
 }

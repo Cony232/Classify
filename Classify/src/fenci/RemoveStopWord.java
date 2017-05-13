@@ -22,7 +22,7 @@ public class RemoveStopWord {
 		System.out.println("开始读取停用词表");
 		BufferedReader StopWordFileBr;
 		try {
-			StopWordFileBr = new BufferedReader(new InputStreamReader(new FileInputStream(new File("file/stopword.txt")), "utf-8"));
+			StopWordFileBr = new BufferedReader(new InputStreamReader(new FileInputStream(new File("file/stop.txt")), "utf-8"));
 			System.out.println("结束读取停用词表");
 			Set<String> stopWordSet = new HashSet<String>();
 			stopWordSet = new HashSet<String>();
@@ -72,9 +72,9 @@ public class RemoveStopWord {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\essay.txt");
+		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\sports.txt");
 		List<String> endList=removeWord(txtList);
-		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\essay.txt", endList);
+		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\sports.txt", endList);
 	}
 
 }
