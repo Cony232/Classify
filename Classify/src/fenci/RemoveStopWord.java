@@ -72,9 +72,9 @@ public class RemoveStopWord {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\sports.txt");
+		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\baby.txt");
 		List<String> endList=removeWord(txtList);
-		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\sports.txt", endList);
+		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\baby.txt", endList);
 	}
 
 }
