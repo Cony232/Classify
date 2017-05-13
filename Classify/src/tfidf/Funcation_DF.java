@@ -133,10 +133,10 @@ public class Funcation_DF {
 //		}
 	
 		
-//		List<String> babyList=Txt2String.readFileByLines("E:\\Classify\\data_jieba_remove\\baby.txt");
+//		List<String> babyList=Txt2String.readFileByLines("E:\\Classify\\data_jieba_remove\\sports.txt");
 //		HashMap<String, Integer> temp=df(babyList);
 //		List list1=Map2List1(temp);
-//		String2Txt.writeFileByLines("E:\\Classify\\jieba_df\\baby.txt", list1);
+//		String2Txt.writeFileByLines("E:\\Classify\\jieba_df\\sports.txt", list1);
 		
 		List<String> babyList=Txt2String.readFileByLines("E:\\Classify\\jieba_df\\baby.txt");
 		List<String> sportsList=Txt2String.readFileByLines("E:\\Classify\\jieba_df\\sports.txt");

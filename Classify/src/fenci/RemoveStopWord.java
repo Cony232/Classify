@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import comm.String2Txt;
 import comm.Txt2String;
@@ -17,6 +19,16 @@ import comm.Txt2String;
 
 
 public class RemoveStopWord {
+
+	public static boolean isNumeric(String str){ 
+		Pattern pattern = Pattern.compile("-?[0-9]+.*[0-9]*"); 
+		Matcher isNum = pattern.matcher(str);
+		if( !isNum.matches() ){
+			return false; 
+		} 
+		return true; 
+	}
+	
 	public static List<String> removeWord(List<String> endList) {
 		List<String> endList2=new ArrayList<String>();//分词和去停用词过后的
 		System.out.println("开始读取停用词表");
@@ -36,7 +48,7 @@ public class RemoveStopWord {
 				// System.out.println(Arrays.asList(termlist));  
 				for (int j = 0; j < termlist.length; j++) {
 					//System.out.println(j+":"+termlist[j]);
-					if (stopWordSet.contains(termlist[j])) {
+					if (stopWordSet.contains(termlist[j])||isNumeric(termlist[j])) {
 						termlist[j]="";
 						//System.out.println(j+":"+termlist[j]);
 					}	
@@ -72,9 +84,9 @@ public class RemoveStopWord {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\baby.txt");
+		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\sports.txt");
 		List<String> endList=removeWord(txtList);
-		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\baby.txt", endList);
+		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\sports.txt", endList);
 	}
 
 }
