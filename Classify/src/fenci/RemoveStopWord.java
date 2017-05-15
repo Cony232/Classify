@@ -20,6 +20,9 @@ import comm.Txt2String;
 
 public class RemoveStopWord {
 
+	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
+			"history","military","regimen","society","sports","story","teach","travel","world"};
+	
 	public static boolean isNumeric(String str){ 
 		Pattern pattern = Pattern.compile("-?[0-9]+.*[0-9]*"); 
 		Matcher isNum = pattern.matcher(str);
@@ -84,9 +87,13 @@ public class RemoveStopWord {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		List<String> txtList=Txt2String.readFileByLines("E:\\classify\\data_jieba\\sports.txt");
-		List<String> endList=removeWord(txtList);
-		String2Txt.writeFileByLines("E:\\classify\\data_jieba_remove\\sports.txt", endList);
+		for (int i = 0; i < classTitle.length; i++) {
+			List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\data_jieba\\"+classTitle[i]+".txt");
+			List<String> endList=removeWord(txtList);
+			String2Txt.writeFileByLines("E:\\ceping\\data_jieba_remove\\"+classTitle[i]+".txt", endList);
+			
+		}
+		
 	}
 
 }
