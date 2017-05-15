@@ -1,4 +1,4 @@
-package tfidf;
+package chi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
