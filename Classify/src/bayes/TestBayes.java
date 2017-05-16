@@ -15,13 +15,13 @@ import comm.IoUtil;
 
 //http://blog.csdn.net/zhonglongshen/article/details/45891681
 public class TestBayes {
-    /**
-     * Ĭ��Ƶ��
+	/**
+     * 默认频率
      */
     private double defaultFreq = 0.1;
 
     /**
-     * ѵ����ݵı���
+     * 训练数据的比例
      */
     private Double trainingPercent = 0.8;
 
@@ -31,17 +31,17 @@ public class TestBayes {
 
     private Map<String, List<String>> files_test = new HashMap<String, List<String>>();
 
-//    public NativeBayes() { }
+
 
     /**
-     * ÿ�������Ƶ��
+     * 每个分类的频率
      */
     private Map<String, Integer> classFreq = new HashMap<String, Integer>();
 
     private Map<String, Double> ClassProb = new HashMap<String, Double>();
 
     /**
-     * ��������
+     * 特征总数
      */
     private Set<String> WordDict = new HashSet<String>();
 
@@ -52,9 +52,9 @@ public class TestBayes {
     private Map<String, Double> ClassDefaultProb = new HashMap<String, Double>();
 
     /**
-     * ����׼ȷ��
-     * @param reallist ��ʵ���
-     * @param pridlist Ԥ�����
+     * 计算准确率
+     * @param reallist 真实类别
+     * @param pridlist 预测类别
      */
     public void Evaluate(List<String> reallist, List<String> pridlist){
         double correctNum = 0.0;
@@ -64,19 +64,19 @@ public class TestBayes {
             }
         }
         double accuracy = correctNum / reallist.size();
-        System.out.println("׼ȷ��Ϊ��" + accuracy);
+        System.out.println("准确率为：" + accuracy);
     }
 
     /**
-     * ���㾫ȷ�ʺ��ٻ���
+     * 计算精确率和召回率
      * @param reallist
      * @param pridlist
      * @param classname
      */
     public void CalPreRec(List<String> reallist, List<String> pridlist, String classname){
         double correctNum = 0.0;
-        double allNum = 0.0;//��������У�ĳ���������������
-        double preNum = 0.0;//��������У�Ԥ��Ϊ�÷������������
+        double allNum = 0.0;//测试数据中，某个分类的文章总数
+        double preNum = 0.0;//测试数据中，预测为该分类的文章总数
 
         for (int i = 0; i < reallist.size(); i++) {
             if(reallist.get(i) == classname){
@@ -89,11 +89,11 @@ public class TestBayes {
                 preNum += 1;
             }
         }
-        System.out.println(classname + " ��ȷ��(��Ԥ�����Ƚ�):" + correctNum / preNum + " �ٻ��ʣ�����ʵ����Ƚϣ�:" + correctNum / allNum);
+        System.out.println(classname + " 精确率(跟预测分类比较):" + correctNum / preNum + " 召回率（跟真实分类比较）:" + correctNum / allNum);
     }
 
     /**
-     * ��ģ�ͽ���Ԥ��
+     * 用模型进行预测
      */
     public void PredictTestData() {
         List<String> reallist=new ArrayList<String>();
@@ -112,7 +112,7 @@ public class TestBayes {
                 List<Double> scorelist=new ArrayList<Double>();
                 for (Entry<String, Double> entry_1 : ClassProb.entrySet()) {
                     String classname = entry_1.getKey();
-                    //�������
+                    //先验概率
                     Double score = Math.log(entry_1.getValue());
 
                     String[] words = IoUtil.readFromFile(new File(file)).split(" ");
@@ -147,7 +147,7 @@ public class TestBayes {
     }
 
     /**
-     * ģ��ѵ��
+     * 模型训练
      */
     public void createModel() {
         double sum = 0.0;
@@ -179,7 +179,7 @@ public class TestBayes {
     }
 
     /**
-     * ����ѵ�����
+     * 加载训练数据
      */
     public void loadTrainData(){
         for (Entry<String, List<String>> entry : files_train.entrySet()) {
@@ -208,16 +208,16 @@ public class TestBayes {
 
 
         }
-        System.out.println(classFreq.size()+" ����, " + WordDict.size()+" ������");
+        System.out.println(classFreq.size()+" 分类, " + WordDict.size()+" 特征词");
     }
 
     /**
-     * ����ݷ�Ϊѵ����ݺͲ������
+     * 将数据分为训练数据和测试数据
      * 
      * @param dataDir
      */
     public void splitData(String dataDir) {
-        // ���ļ���������
+        // 用文件名区分类别
         Pattern pat = Pattern.compile("\\d+([a-z]+?)\\.");
         dataDir = "testdata/allfiles";
         File f = new File(dataDir);
@@ -239,7 +239,7 @@ public class TestBayes {
             }
         }
 
-        System.out.println("ͳ�����:");
+        System.out.println("统计数据:");
         for (Entry<String, List<String>> entry : files_all.entrySet()) {
             String cname = entry.getKey();
             List<String> value = entry.getValue();
@@ -249,7 +249,7 @@ public class TestBayes {
             List<String> test = new ArrayList<String>();
 
             for (String str : value) {
-                if (Math.random() <= trainingPercent) {// 80%����ѵ�� , 20%����
+                if (Math.random() <= trainingPercent) {// 80%用来训练 , 20%测试
                     train.add(str);
                 } else {
                     test.add(str);
@@ -260,17 +260,17 @@ public class TestBayes {
             files_test.put(cname, test);
         }
 
-        System.out.println("�����ļ���:");
+        System.out.println("所有文件数:");
         printStatistics(files_all);
-        System.out.println("ѵ���ļ���:");
+        System.out.println("训练文件数:");
         printStatistics(files_train);
-        System.out.println("�����ļ���:");
+        System.out.println("测试文件数:");
         printStatistics(files_test);
 
     }
 
     /**
-     * ��ӡͳ����Ϣ
+     * 打印统计信息
      * 
      * @param m
      */
