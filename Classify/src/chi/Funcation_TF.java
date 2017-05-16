@@ -6,7 +6,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
 
+import comm.Calculte_TFDF;
+import comm.String2Txt;
+import comm.Txt2String;
+
 public class Funcation_TF { 
+	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
+		"history","military","regimen","society","sports","story","tech","travel","world"};
+	
 	public static HashMap<String, Integer> tf(List<String> txtList) {  
 		HashMap<String, Integer>  hashMap= new HashMap<String, Integer>();
 		for (String string : txtList) {
@@ -24,18 +31,48 @@ public class Funcation_TF {
 	}  
 
 
-	public static void main(String[] args) {
-		String a="ÎÒÃÇ ÖĞ¹ú";
-		String b="ÎÒÃÇ ÖĞ¹ú ÎÒÃÇ";
+	public static List<String> Map2List1(HashMap<String, Integer> map){
+		Iterator<Entry<String, Integer>> iterator = map.entrySet().iterator();
 		List<String> list=new ArrayList<String>();
-		list.add(a);
-		list.add(b);
-		HashMap<String, Integer> temp=tf(list);
-		Iterator iterator = temp.entrySet().iterator();
+		Integer n=0;
 		while(iterator.hasNext()){
-			Entry entry = (Entry) iterator.next();  
-			System.out.println(entry.getKey()+":"+entry.getValue());      // »ñÈ¡key
-		} 
-
+			while(iterator.hasNext()){
+				Entry<String, Integer> entry = (Entry<String, Integer>) iterator.next(); 
+				String str=entry.getKey()+":"+entry.getValue();
+				n=n+entry.getValue();
+				list.add(str);      
+			} 		
+		}
+		list.add(""+n);
+		return list;
+	}
+	
+	
+	public static void main(String[] args) {
+		List<List<String>> txtList=new ArrayList<List<String>>();
+	    HashMap<String, int[]> map=new HashMap<String, int[]>();
+		//è®¡ç®—æ¯ä¸ªç±»çš„tfå’Œæ¯ä¸ªç±»çš„æ€»è¯é¢‘(num.txt)
+//		List<String> numList=new ArrayList<String>();
+//		for (int i = 0; i < classTitle.length; i++) {
+//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\data_jieba_remove\\"+classTitle[i]+".txt");
+//			HashMap<String, Integer> temp=tf(list);
+//			List<String> list1=Map2List1(temp);
+//			String str=list1.get(list1.size()-1);
+//			numList.add(str);
+//			list1.remove(list1.size()-1);
+//			String2Txt.writeFileByLines("E:\\ceping\\jieba_tf\\"+classTitle[i]+".txt", list1);
+//		}
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba_c_num\\num.txt", numList);
+		
+		//è®¡ç®—tfçŸ©é˜µ(tf_all.txt)
+		for (int i = 0; i < classTitle.length; i++) {
+			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_tf\\"+classTitle[i]+".txt");
+			txtList.add(list2);
+		}
+		for (int j = 0; j < txtList.size(); j++) {
+			map=Calculte_TFDF.calculate_juzhen(txtList.get(j), map, j+1);
+		}
+		List<String> endlist=Calculte_TFDF.Map2List2(map);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba_tf_juzhen\\juzhen.txt", endlist);
 	}
 }

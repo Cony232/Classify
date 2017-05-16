@@ -25,6 +25,7 @@ public class Funcation_Chi {
 	public static List<String> calculate_chi(List<String> txtList) {  
 		List<String> featureList=new ArrayList<String>();
 		List<String> maxList=new ArrayList<String>();
+		int flag=0;//记录最大chi的类别
 		for (String str : txtList) {
 			double max=0;
 			double[] feature=new double[18];
@@ -43,13 +44,16 @@ public class Funcation_Chi {
 				feature[j]=chi(A,B,C,D);	
 				if(feature[j]>max){
 					max=feature[j];
+					flag=j+1;
 				}
 			}
 			String maxFeature=Double.toString(max);
+			//maxList.add(word+":"+maxFeature+";"+flag);
 			maxList.add(word+":"+maxFeature);
 			String s=Double2String.Array2String(feature);
 			featureList.add(word+":"+s);
 		}
+		//获取每个单词的最大chi
 		String2Txt.writeFileByLines("E:\\ceping\\feature\\max_feature.txt", maxList);
 		//String max=maxList.toString()
 		return featureList;
@@ -65,6 +69,7 @@ public class Funcation_Chi {
 		return up/down;	
 	}
 
+	//获取DF和
 	public static int calculate_sum(int[] array){
 		int num=0;
 		for (int i = 0; i < array.length; i++) {
@@ -73,19 +78,23 @@ public class Funcation_Chi {
 		return num;
 	}
 
-	public static double getMax(double[] arr){
-		double max=0;
-		for(int i=1;i<arr.length;i++){
-			if(arr[i]>max){
-				max=arr[i];
-			}
-		}
-		return max;
-	}
+	//	//获取chi最大值
+	//	public static String getMax(double[] arr){
+	//		double max=0;
+	//		int flag=0;
+	//		for(int i=1;i<arr.length;i++){
+	//			if(arr[i]>max){
+	//				max=arr[i];
+	//				flag=i+1;
+	//			}
+	//		}
+	//		return ""+max+";"+flag;
+	//	}
 
+	//chi排序
 	public static List<String> SortFeature(List<String> maxList){
 		Map<String,Double> maxMap=new HashMap<String,Double>();
-		 List<String> endList=new ArrayList<String>();
+		List<String> endList=new ArrayList<String>();
 		for (String string : maxList) {
 			int i=string.indexOf(":");
 			String word=string.substring(0, i);
@@ -101,30 +110,53 @@ public class Funcation_Chi {
 				return o2.getValue()>=o1.getValue()?1:-1;
 			}
 		});
-		 for(Map.Entry<String,Double> mapping:infoIds){   
-			 endList.add(mapping.getKey()+":"+mapping.getValue());   
-        }   
+		for(Map.Entry<String,Double> mapping:infoIds){   
+			endList.add(mapping.getKey()+":"+mapping.getValue());   
+		}   
 		return endList;
 	}
 
 
+	public static List<String> getFeatureTF(List<String> endList,List<String> tfList) { 
+		List<String> list=new ArrayList<String>();
+		for (int i = 0; i <30000; i++) {
+			String string=endList.get(i);
+			int j=string.indexOf(":");
+			String word=string.substring(0, j);
+			for (int k = 0; k < tfList.size(); k++) {
+				String s=tfList.get(k);
+				int m=s.indexOf(":");
+				String term=s.substring(0, m);
+				if(word.equals(term)){
+					list.add(tfList.get(k));
+					tfList.remove(k);
+					break;
+				}
+			}
+		}
+		return list;
+	}
+
 
 	public static void main(String[] args) {
-		//		List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\jieba_B\\B.txt");
-		//		List<String> list=calculate_chi(txtList);	
-		//		String2Txt.writeFileByLines("E:\\ceping\\feature\\feature.txt", list);
 
-		//		
-		//		String str="普法:0,0,0,1,0,0,1,0,0,1,1,0,9,0,0,0,0,0";
-		//		List<String> txtList=new ArrayList<String>();
-		//		txtList.add(str);
-		//		List<String> list=calculate_chi(txtList);	
-		//		for (String string : list) {
-		//			System.out.println(string);
-		//		}
-		
-		List<String> maxList=Txt2String.readFileByLines("E:\\ceping\\feature\\max_feature.txt");
-		List<String> list=SortFeature(maxList);
-		String2Txt.writeFileByLines("E:\\ceping\\feature\\end_feature.txt", list);
+		//生成chi矩阵(feature.txt)和每个词的最大chi(max_feature.txt)
+		List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\jieba_df_juzhen\\juzhen.txt");
+		List<String> list=calculate_chi(txtList);	
+//		String2Txt.writeFileByLines("E:\\ceping\\feature\\feature.txt", list);
+
+		//每个词最大chi按从大到小排序(end_feature.txt)
+//		List<String> maxList=Txt2String.readFileByLines("E:\\ceping\\feature\\max_feature.txt");
+//		List<String> list=SortFeature(maxList);
+//		String2Txt.writeFileByLines("E:\\ceping\\feature\\end_feature.txt", list);//最大chi排序
+
+		//按chi从大到小排序词的tf矩阵(jieba_tf_feature.txt)
+//		List<String> endList=Txt2String.readFileByLines("E:\\ceping\\feature\\end_feature.txt");
+//		//	System.out.println(endList.get(0));
+//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba_tf_juzhen\\juzhen.txt");	
+//		List<String> list=getFeatureTF(endList, tfList);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_30000.txt", list);
+
+
 	}
 }

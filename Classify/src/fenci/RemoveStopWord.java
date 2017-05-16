@@ -21,7 +21,7 @@ import comm.Txt2String;
 public class RemoveStopWord {
 
 	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
-			"history","military","regimen","society","sports","story","teach","travel","world"};
+			"history","military","regimen","society","sports","story","tech","travel","world"};
 	
 	public static boolean isNumeric(String str){ 
 		Pattern pattern = Pattern.compile("-?[0-9]+.*[0-9]*"); 
