@@ -57,6 +57,7 @@ public class NativeBayes {
 		for (int i = 0; i < term.length; i++) {
 			String str=map.get(term[i]);
 			if(!("").equals(str)&&null!=str){
+			//	System.out.println(term[i]);
 				pwcList.add(str);
 			}
 		}
@@ -64,7 +65,7 @@ public class NativeBayes {
 	}
 
 	//计算p(c|x)
-	public static int doBayes(List<String> pwcList,List<String> pcList) {
+	public static String doBayes(List<String> pwcList,List<String> pcList) {
 		double max=0;
 		int index=0;
 		double[] endP=new double[18];
@@ -80,19 +81,37 @@ public class NativeBayes {
 			double d=1;
 			for (int j = 0; j < list1.size(); j++) {
 				d =d*list1.get(j)[i];
+				//System.out.println(i+":"+list1.get(j)[i]);
 			}
 			result=d*pcArray[i]*100;
+			
 			endP[i]=result;
 			if(result>max){
 				max=result;
-				index=i;
+				index=i+1;
 			}
 		}
 		String str=Double2String.Array2String(endP, 4);
-		System.out.println(str);
-		return index;
+		System.out.println(index);
+		return ""+index;
 	}
 
+    public static double CalPre(List<String> cList, String cindex){
+        double A=0.0;
+        double B=0.0;
+        double P=0.0;
+        for (int i = 0; i < cList.size(); i++) {
+            if(cList.get(i).equals(cindex)){
+                A+=1;
+            }else{
+            	B+=1;
+            }
+        }
+        System.out.println(A);
+        P=A/(A+B);
+       // System.out.println(P);
+        return P;
+    }
 
 	public static void main(String[] args) {
 
@@ -116,13 +135,21 @@ public class NativeBayes {
 		//		List<String> list=calculate_pc();
 		//		String2Txt.writeFileByLines("E:\\work\\Classify\\bayes\\pc.txt", list);
 	
-	String str="文友 忠告 暖 人心 人到中年 不交五友 ";
+	List<String> txtList=Txt2String.readFileByLines("E:\\work\\Classify\\test\\game.txt");
+	//List<String> txtList=new ArrayList<String>();
 	List<String> pwcList=Txt2String.readFileByLines("E:\\work\\Classify\\bayes\\pwc_4959.txt");
 	List<String> pcList=Txt2String.readFileByLines("E:\\work\\Classify\\bayes\\pc.txt");
 	Map<String,String> map=CommonCal.String2Map(pwcList);
-	List<String> term_pcwList=getFeature(str,map);
-	int index=doBayes(term_pcwList, pcList);
-	System.out.println(classTitle[index]);
-	//System.out.println(pwcList.get(0));
+	List<String> cList=new ArrayList<String>();
+	//txtList.add("产 斤 双眼皮 公主 生产 时 医生 一句 话 吓坏 ");
+	 for (String string : txtList) {
+		 List<String> term_pcwList=getFeature(string,map);
+		// System.out.println(term_pcwList.get(0));
+		 String index=doBayes(term_pcwList, pcList);
+		// System.out.println(index);
+		 cList.add(index);
+	}
+	 double p=CalPre(cList,"9");
+    System.out.println(p);
 	}
 }
