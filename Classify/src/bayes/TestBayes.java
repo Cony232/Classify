@@ -18,6 +18,8 @@ public class TestBayes {
 	/**
      * 默认频率
      */
+	private static double N=156000;
+	private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
     private double defaultFreq = 0.1;
 
     /**

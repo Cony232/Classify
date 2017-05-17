@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import comm.CommonCal;
 import comm.Double2String;
-import comm.String2IntArray;
+import comm.String2Array;
 import comm.String2Txt;
 import comm.Txt2String;
 
@@ -33,8 +34,8 @@ public class Funcation_Chi {
 			String word=str.substring(0, i);
 			String numString=str.substring(i+1);
 			String[] termlist=numString.split(",");
-			int[] num=String2IntArray.String2Array(termlist);
-			int sum=calculate_sum(num);
+			int[] num=String2Array.StrArray2IntArray(termlist);
+			int sum=CommonCal.calculate_sum(num);
 			for (int j = 0; j < num.length; j++) {
 				A=num[j];
 				B=sum-num[j];
@@ -50,7 +51,7 @@ public class Funcation_Chi {
 			String maxFeature=Double.toString(max);
 			//maxList.add(word+":"+maxFeature+";"+flag);
 			maxList.add(word+":"+maxFeature);
-			String s=Double2String.Array2String(feature);
+			String s=Double2String.Array2String(feature,4);
 			featureList.add(word+":"+s);
 		}
 		//获取每个单词的最大chi
@@ -69,14 +70,8 @@ public class Funcation_Chi {
 		return up/down;	
 	}
 
-	//获取DF和
-	public static int calculate_sum(int[] array){
-		int num=0;
-		for (int i = 0; i < array.length; i++) {
-			num=num+array[i];
-		}
-		return num;
-	}
+	
+
 
 	//	//获取chi最大值
 	//	public static String getMax(double[] arr){

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import comm.Calculte_TFDF;
+import comm.CommonCal;
 import comm.String2Txt;
 import comm.Txt2String;
 
@@ -56,9 +56,9 @@ public class Funcation_DF {
 			txtList.add(list2);
 		}
 		for (int j = 0; j < txtList.size(); j++) {
-			map=Calculte_TFDF.calculate_juzhen(txtList.get(j), map, j+1);
+			map=CommonCal.calculate_juzhen(txtList.get(j), map, j+1);
 		}
-		List<String> endlist=Calculte_TFDF.Map2List2(map);
+		List<String> endlist=CommonCal.Map2List2(map);
 		String2Txt.writeFileByLines("E:\\ceping\\jieba_df_juzhen\\juzhen.txt", endlist);
 	}
 }
