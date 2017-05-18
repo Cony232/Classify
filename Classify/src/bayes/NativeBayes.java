@@ -6,6 +6,7 @@ import java.util.Map;
 import comm.CommonCal;
 import comm.Double2String;
 import comm.String2Array;
+import comm.String2Txt;
 import comm.Txt2String;
 
 public class NativeBayes {
@@ -15,7 +16,7 @@ public class NativeBayes {
 	private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
 	private static double V=0;
 	//计算p(w|c)
-	public static String calculate_pwc(String tfString,int[] wordNum) {
+	public static String calculate_pwc(String tfString,int[] word_num) {
 		double result=0;
 		double[] endStr=new double[18];
 		int i=tfString.indexOf(":");
@@ -25,7 +26,7 @@ public class NativeBayes {
 		int[] tf_num=String2Array.StrArray2IntArray(tfNum);
 		for (int j = 0; j < tf_num.length; j++) {
 			double up=tf_num[j]+1;
-			double down=wordNum[j]+V;
+			double down=word_num[j]+V;
 			result=up/down;
 			endStr[j]=result;
 		}
@@ -57,7 +58,7 @@ public class NativeBayes {
 		for (int i = 0; i < term.length; i++) {
 			String str=map.get(term[i]);
 			if(!("").equals(str)&&null!=str){
-			//	System.out.println(term[i]);
+				//	System.out.println(term[i]);
 				pwcList.add(str);
 			}
 		}
@@ -65,7 +66,7 @@ public class NativeBayes {
 	}
 
 	//计算p(c|x)
-	public static String doBayes(List<String> pwcList,List<String> pcList) {
+	public static int doBayes(List<String> pwcList,List<String> pcList) {
 		double max=0;
 		int index=0;
 		double[] endP=new double[18];
@@ -84,72 +85,102 @@ public class NativeBayes {
 				//System.out.println(i+":"+list1.get(j)[i]);
 			}
 			result=d*pcArray[i]*100;
-			
 			endP[i]=result;
 			if(result>max){
 				max=result;
-				index=i+1;
+				index=i;
 			}
 		}
-		String str=Double2String.Array2String(endP, 4);
-		System.out.println(index);
-		return ""+index;
+		//String str=Double2String.Array2String(endP, 4);
+		//System.out.println(index);
+		return index;
 	}
 
-    public static double CalPre(List<String> cList, String cindex){
-        double A=0.0;
-        double B=0.0;
-        double P=0.0;
-        for (int i = 0; i < cList.size(); i++) {
-            if(cList.get(i).equals(cindex)){
-                A+=1;
-            }else{
-            	B+=1;
-            }
-        }
-        System.out.println(A);
-        P=A/(A+B);
-       // System.out.println(P);
-        return P;
-    }
+	public static double CalPre(List<Integer> cList, int index){
+		double A=0.0;
+		double B=0.0;
+		double P=0.0;
+		for (int i = 0; i < cList.size(); i++) {
+			if(cList.get(i)==index){
+				A+=1;
+			}else{
+				B+=1;
+			}
+		}
+		//System.out.println(A);
+		P=A/(A+B);
+		return P;
+	}
+
+	public static List<String> featureTF(List<String> list){
+		int num=0;
+		List<String> wordList=new ArrayList<String>();
+		List<String> featureTF_Num=new ArrayList<String>();
+		List<int[]> tfList=new ArrayList<int[]>();
+		for (String string : list) {
+			int i=string.indexOf(":");
+			String word=string.substring(0,i);
+			wordList.add(word);
+			String tf=string.substring(i+1);
+			String[] tfArray=tf.split(",");
+			int[] intArray=String2Array.StrArray2IntArray(tfArray);
+			tfList.add(intArray);
+		}
+		for (int i = 0; i < 18; i++) {
+			//String term="";
+			for (int j = 0; j < wordList.size(); j++) {
+				num=num+tfList.get(j)[i];
+			}
+			featureTF_Num.add(""+num);
+		}
+		return featureTF_Num;
+	}
+
 
 	public static void main(String[] args) {
+		//1.计算C中所有特征词的词频和
+//				List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_chaifen.txt");
+//				List<String> wordNum=featureTF(tfList);
+//				String2Txt.writeFileByLines("E:\\ceping\\jieba_c_num\\num_chaifen.txt", wordNum);
 
-//		List<String> wordNum=Txt2String.readFileByLines("E:\\work\\Classify\\jieba_c_num\\num.txt");
-//		int[] word_num=String2Array.StrList2IntArray(wordNum);
-//		V=CommonCal.calculate_sum(word_num);
-//		List<String> tfList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba_feature_tf\\feature_tf_4959.txt");
-//		List<String> endList=new ArrayList<String>();
-//		for (String string : tfList) {
-//			System.out.println(string);
-//			String s=calculate_pwc(string,word_num);
-//			endList.add(s);
-//		}
-//		String2Txt.writeFileByLines("E:\\work\\Classify\\bayes\\pwc_4959.txt", endList);
+		//2.计算pwc
+//				List<String> wordNum=Txt2String.readFileByLines("E:\\ceping\\jieba_c_num\\num_chaifen.txt");
+//				int[] word_num=String2Array.StrList2IntArray(wordNum);
+//				V=3600;
+//				List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_chaifen.txt");
+//				List<String> endList=new ArrayList<String>();
+//				for (String string : tfList) {
+//					//System.out.println(string);
+//					String s=calculate_pwc(string,word_num);
+//					endList.add(s);
+//				}
+//				String2Txt.writeFileByLines("E:\\ceping\\bayes\\pwc_chaifen.txt", endList);
 
-		//	String tfString="宝宝:2417,6,1,40,1,7,5,54,28,1,2,14,9,7,21,10,8,16";
-		//		
-		//		System.out.println(s);
 
 		//计算p(c)
-		//		List<String> list=calculate_pc();
-		//		String2Txt.writeFileByLines("E:\\work\\Classify\\bayes\\pc.txt", list);
-	
-	List<String> txtList=Txt2String.readFileByLines("E:\\work\\Classify\\test\\game.txt");
-	//List<String> txtList=new ArrayList<String>();
-	List<String> pwcList=Txt2String.readFileByLines("E:\\work\\Classify\\bayes\\pwc_4959.txt");
-	List<String> pcList=Txt2String.readFileByLines("E:\\work\\Classify\\bayes\\pc.txt");
-	Map<String,String> map=CommonCal.String2Map(pwcList);
-	List<String> cList=new ArrayList<String>();
-	//txtList.add("产 斤 双眼皮 公主 生产 时 医生 一句 话 吓坏 ");
-	 for (String string : txtList) {
-		 List<String> term_pcwList=getFeature(string,map);
-		// System.out.println(term_pcwList.get(0));
-		 String index=doBayes(term_pcwList, pcList);
-		// System.out.println(index);
-		 cList.add(index);
-	}
-	 double p=CalPre(cList,"9");
-    System.out.println(p);
+//		List<String> list=calculate_pc();
+//		String2Txt.writeFileByLines("E:\\ceping\\bayes\\pc.txt", list);
+
+		double n=0;
+		for (int i = 0; i < classTitle.length; i++) {
+			List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\test\\"+classTitle[i]+".txt");
+			//List<String> txtList=new ArrayList<String>();
+			List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\bayes\\pwc_4959.txt");
+			List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\bayes\\pc.txt");
+			Map<String,String> map=CommonCal.String2Map(pwcList);
+			List<Integer> cList=new ArrayList<Integer>();
+			//txtList.add("产 斤 双眼皮 公主 生产 时 医生 一句 话 吓坏 ");
+			for (String string : txtList) {
+				List<String> term_pcwList=getFeature(string,map);
+				// System.out.println(term_pcwList.get(0));
+				Integer index=doBayes(term_pcwList, pcList);
+				// System.out.println(index);
+				cList.add(index);
+			}
+			double p=CalPre(cList,i);
+			n+=p;
+			System.out.println(classTitle[i]+":"+p);
+		}
+		System.out.println(n/18);
 	}
 }

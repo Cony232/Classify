@@ -51,18 +51,18 @@ public class Funcation_TF {
 	public static void main(String[] args) {
 		List<List<String>> txtList=new ArrayList<List<String>>();
 	    HashMap<String, int[]> map=new HashMap<String, int[]>();
-		//计算每个类的tf和每个类的总词频(num.txt)
-//		List<String> numList=new ArrayList<String>();
-//		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\data_jieba_remove\\"+classTitle[i]+".txt");
-//			HashMap<String, Integer> temp=tf(list);
-//			List<String> list1=Map2List1(temp);
-//			String str=list1.get(list1.size()-1);
-//			numList.add(str);
-//			list1.remove(list1.size()-1);
-//			String2Txt.writeFileByLines("E:\\ceping\\jieba_tf\\"+classTitle[i]+".txt", list1);
-//		}
-//		String2Txt.writeFileByLines("E:\\ceping\\jieba_c_num\\num.txt", numList);
+		//计算每个类的tf
+		List<String> numList=new ArrayList<String>();
+		for (int i = 0; i < classTitle.length; i++) {
+			List<String> list=Txt2String.readFileByLines("E:\\ceping\\data_jieba_remove\\"+classTitle[i]+".txt");
+			HashMap<String, Integer> temp=tf(list);
+			List<String> list1=Map2List1(temp);
+			//String str=list1.get(list1.size()-1);
+			//numList.add(str);
+			list1.remove(list1.size()-1);
+			String2Txt.writeFileByLines("E:\\ceping\\jieba_tf\\"+classTitle[i]+".txt", list1);
+		}
+		//String2Txt.writeFileByLines("E:\\ceping\\jieba_c_num\\num.txt", numList);
 		
 		//计算tf矩阵(tf_all.txt)
 		for (int i = 0; i < classTitle.length; i++) {

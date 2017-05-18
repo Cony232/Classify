@@ -15,7 +15,7 @@ public class Txt2String {
 		BufferedReader reader = null;
 		List<String> txtList=new ArrayList<String>();
 		try {
-			// InputStreamReader read = new InputStreamReader(new FileInputStream(file),"gbk"); 
+			 //InputStreamReader read = new InputStreamReader(new FileInputStream(file),"gbk"); 
 			//以行为单位读取文件内容，一次读一行
 		    reader = new BufferedReader(new FileReader(file));
 			//reader = new BufferedReader(read);

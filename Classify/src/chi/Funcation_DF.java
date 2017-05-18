@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -39,8 +40,8 @@ public class Funcation_DF {
 
 	public static void main(String[] args)  {
 
-		List<List<String>> txtList=new ArrayList<List<String>>();
-	    HashMap<String, int[]> map=new HashMap<String, int[]>();
+//		List<List<String>> txtList=new ArrayList<List<String>>();
+//	    Map<String, int[]> map=new HashMap<String, int[]>();
 //		//计算df
 
 //		for (int i = 0; i < classTitle.length; i++) {
@@ -51,14 +52,26 @@ public class Funcation_DF {
 //		}
 		
 		//计算df矩阵
-		for (int i = 0; i < classTitle.length; i++) {
-			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_df\\"+classTitle[i]+".txt");
-			txtList.add(list2);
-		}
-		for (int j = 0; j < txtList.size(); j++) {
-			map=CommonCal.calculate_juzhen(txtList.get(j), map, j+1);
-		}
-		List<String> endlist=CommonCal.Map2List2(map);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba_df_juzhen\\juzhen.txt", endlist);
+//		for (int i = 0; i < classTitle.length; i++) {
+//			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_df\\"+classTitle[i]+".txt");
+//			txtList.add(list2);
+//		}
+//		for (int j = 0; j < txtList.size(); j++) {
+//			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
+//		}
+//		List<String> endlist=CommonCal.Map2List2(map);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba_df_juzhen\\juzhen.txt", endlist);
+	    
+		
+		//拆分df_juzhen
+//	    List<String> df_juzhen=Txt2String.readFileByLines("E:\\ceping\\jieba_df_juzhen\\juzhen.txt");
+//	    Map<String,String> map1=CommonCal.String2Map(df_juzhen);
+//	    for (int i = 0; i < classTitle.length; i++) {
+//		List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_df\\"+classTitle[i]+".txt");
+//		Map<String,String> map2=CommonCal.chaifen_juzhen(list2, map1);
+//		List list=CommonCal.Map2List1(map2);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba_df_juzhen\\chaifen\\"+classTitle[i]+".txt", list);
+//	}
+	    
 	}
 }
