@@ -19,7 +19,7 @@ public class CommonCal {
 				int[] num=(int[]) entry.getValue();
 				String value=Arrays.toString(num);
 				value=value.replaceAll(" ","");
-				String str=entry.getKey()+":"+value.substring(1, value.length()-1);
+				String str=entry.getKey()+";"+value.substring(1, value.length()-1);
 				list.add(str);     
 			} 		
 		}
@@ -45,11 +45,13 @@ public class CommonCal {
 	 * @param i 类的序号，0开始
 	 * @return
 	 */
-	public static HashMap<String, int[]> calculate_juzhen(List<String> txtList,HashMap<String, int[]> map,int i) {  
+	public static Map<String, int[]> calculate_juzhen(List<String> txtList,Map<String, int[]> map,int i) {  
 		for (String string : txtList) {
-			String[] termlist=string.split(":");//我们:1
+		//	String[] termlist=string.split(":");//我们:1 jieba
+			String[] termlist=string.split(";");//我们;1 nlpir
 			int[] num=new int[18];
 			if (!map.containsKey(termlist[0])) {//如果矩阵中不包含w,加入该w的df
+				
 				num[i]=Integer.parseInt(termlist[1]);
 				map.put(termlist[0],num);
 			} else {//如果存在，获取这个值，给对应的c位置赋值

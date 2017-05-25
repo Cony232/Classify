@@ -40,27 +40,29 @@ public class Funcation_DF {
 
 	public static void main(String[] args)  {
 
-//		List<List<String>> txtList=new ArrayList<List<String>>();
-//	    Map<String, int[]> map=new HashMap<String, int[]>();
+
 //		//计算df
 
 //		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\data_jieba_remove\\"+classTitle[i]+".txt");
+//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_remove\\"+classTitle[i]+".txt");
 //			HashMap<String, Integer> temp=df(list);
-//			List list1=Calculte_TFDF.Map2List1(temp);
-//			String2Txt.writeFileByLines("E:\\ceping\\jieba_df\\"+classTitle[i]+".txt", list1);
+//			List list1=Funcation_TF.Map2List1(temp);
+//			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_df\\"+classTitle[i]+".txt", list1);
 //		}
-		
+//		
 		//计算df矩阵
-//		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_df\\"+classTitle[i]+".txt");
-//			txtList.add(list2);
-//		}
-//		for (int j = 0; j < txtList.size(); j++) {
-//			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
-//		}
-//		List<String> endlist=CommonCal.Map2List2(map);
-//		String2Txt.writeFileByLines("E:\\ceping\\jieba_df_juzhen\\juzhen.txt", endlist);
+		List<List<String>> txtList=new ArrayList<List<String>>();
+	    Map<String, int[]> map=new HashMap<String, int[]>();
+		for (int i = 0; i < classTitle.length; i++) {
+			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\nlpir\\jieba_df\\"+classTitle[i]+".txt");
+			txtList.add(list2);
+		}
+		for (int j = 0; j < txtList.size(); j++) {
+		
+			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
+		}
+		List<String> endlist=CommonCal.Map2List2(map);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_df_juzhen\\juzhen.txt", endlist);
 	    
 		
 		//拆分df_juzhen

@@ -1,0 +1,13 @@
+bayes:pc.txt  pwc_4959.txt
+data_jieba:jieba分词后的原始语料
+data_jieba_remove:去停用词后的语料
+jieba_c_num:特征词在每个类的词频和(num.txt  num_4959.txt)
+jieba_df:每个类中词语的df(18个类)
+jieba_df_juzhen:词语在18个类的df矩阵
+jieba_tf:每个类中词语的tf(18个类)
+jieba_tf_juzhen:词语在18个类的tf矩阵
+feature:(特征提取)  chi.txt——所有词在每个类的chi值矩阵  max_feature.txt——每个词的最大chi值  end_feature.txt——max_feature从大到小排序
+jieba_feature_tf:特征词的tf矩阵（juzhen_tf2_4959:特征词的词频率矩阵-分母为特征词在Ci的词频和,juzhen_tf2_4959_2:分母为所有词在Ci的词频和）
+jieba_idf:feature_idf——所有特征词的idf(feature_idf_4959) idf_all:所有词的idf
+jieba_tfidf:特征词的tfidf矩阵
+test:测试集

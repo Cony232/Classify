@@ -40,12 +40,13 @@ public class Funcation_TF {
 		while(iterator.hasNext()){
 			while(iterator.hasNext()){
 				Entry<String, Integer> entry = (Entry<String, Integer>) iterator.next(); 
-				String str=entry.getKey()+":"+entry.getValue();
+				String str=entry.getKey()+";"+entry.getValue();// nlpir
+			//	String str=entry.getKey()+":"+entry.getValue();// jieba
 				n=n+entry.getValue();
 				list.add(str);      
 			} 		
 		}
-		list.add(""+n);
+		//list.add(""+n);
 		return list;
 	}
 	
@@ -70,21 +71,52 @@ public class Funcation_TF {
 	}  
 
 	
+	public static List<String> featureTF(List<String> list){
+		List<String> wordList=new ArrayList<String>();
+		List<String> featureTF_Num=new ArrayList<String>();
+		List<int[]> tfList=new ArrayList<int[]>();
+		for (String string : list) {
+			int i=string.indexOf(":");
+			String word=string.substring(0,i);
+			wordList.add(word);
+			String tf=string.substring(i+1);
+			String[] tfArray=tf.split(",");
+			int[] intArray=String2Array.StrArray2IntArray(tfArray);
+			tfList.add(intArray);
+		}
+		//String term="";
+		int[] num=new int[18];
+		for (int j = 0; j < tfList.size(); j++) {
+			for (int i = 0; i < 18; i++) {
+				num[i]=num[i]+tfList.get(j)[i];
+			}
+		}
+		//	featureTF_Num.add(""+num);
+		for (int i = 0; i < num.length; i++) {
+			featureTF_Num.add(""+num[i]);
+		}
+		return featureTF_Num;
+	}
 	
 	public static void main(String[] args) {
-//		List<List<String>> txtList=new ArrayList<List<String>>();
-//	    HashMap<String, int[]> map=new HashMap<String, int[]>();
-//		//计算每个类的tf
-//		List<String> numList=new ArrayList<String>();
-//		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\data_jieba_remove\\"+classTitle[i]+".txt");
-//			HashMap<String, Integer> temp=tf(list);
-//			List<String> list1=Map2List1(temp);
-//			//String str=list1.get(list1.size()-1);
-//			//numList.add(str);
-//			list1.remove(list1.size()-1);
-//			String2Txt.writeFileByLines("E:\\ceping\\jieba_tf\\"+classTitle[i]+".txt", list1);
-//		}
+		//1.计算C中所有特征词的词频和
+//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_30000.txt");
+//		List<String> wordNum=featureTF(tfList);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba_c_num\\num_30000.txt", wordNum);
+		
+		List<List<String>> txtList=new ArrayList<List<String>>();
+	    HashMap<String, int[]> map=new HashMap<String, int[]>();
+		//计算每个类的tf
+		List<String> numList=new ArrayList<String>();
+		for (int i = 0; i < classTitle.length; i++) {
+			List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_remove\\"+classTitle[i]+".txt");
+			HashMap<String, Integer> temp=tf(list);
+			List<String> list1=Map2List1(temp);
+			//String str=list1.get(list1.size()-1);
+			//numList.add(str);
+			list1.remove(list1.size()-1);
+			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf\\"+classTitle[i]+".txt", list1);
+		}
 //		//String2Txt.writeFileByLines("E:\\ceping\\jieba_c_num\\num.txt", numList);
 //		
 //		//计算tf矩阵(tf_all.txt)
@@ -99,10 +131,10 @@ public class Funcation_TF {
 //		String2Txt.writeFileByLines("E:\\ceping\\jieba_tf_juzhen\\juzhen.txt", endlist);
 		
 		//计算tf2
-		List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_4959.txt");
-		List<String> numList=Txt2String.readFileByLines("E:\\ceping\\jieba_c_num\\num.txt");
-		List tf2List=tf2(list,numList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba_feature_tf\\juzhen_tf2_4959_2.txt", tf2List);
+//		List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_9831.txt");
+//		List<String> numList=Txt2String.readFileByLines("E:\\ceping\\jieba_c_num\\num.txt");
+//		List tf2List=tf2(list,numList);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba_feature_tf\\juzhen_tf2_4959_2.txt", tf2List);
 	}
 	
 	

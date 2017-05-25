@@ -275,13 +275,9 @@ public class Apriori {
 	{
 		List<String> list = new ArrayList<String>();
 		List<String> dataList = new ArrayList<String>();
-		list=Txt2String.readFileByLines("E:\\classify\\data_jieba_remove\\essay.txt");
-		for (String string : list) {
-			String str[]=string.split(ITEM_SPLIT);
-			if(str.length>1){
-				dataList.add(string);
-			}
-		}
+		list=Txt2String.readFileByLines("E:\\baby.txt");
+		  
+		
 		//		List<String> dataList = new ArrayList<>();
 		//		dataList.add("样 东西 后娘 孩子 磕头 ");
 		//		dataList.add("奇闻 录 苗族 蛊 毒 真 真实 中 蛊 故事");
@@ -293,16 +289,16 @@ public class Apriori {
 		//			System.out.println(string);
 		//		}
 
-	//	Apriori apriori = new Apriori();
+		Apriori apriori = new Apriori();
 
-//		System.out.println("=频繁项集==========");
-//
-//		Map<String, Integer> frequentSetMap = apriori.apriori(dataList);
-//		Set<String> keySet = frequentSetMap.keySet();
-//		for(String key:keySet)
-//		{
-//			System.out.println(key+" : "+frequentSetMap.get(key));
-//		}
+		System.out.println("=频繁项集==========");
+
+		Map<String, Integer> frequentSetMap = apriori.apriori(list);
+		Set<String> keySet = frequentSetMap.keySet();
+		for(String key:keySet)
+		{
+			System.out.println(key+" : "+frequentSetMap.get(key));
+		}
 
 		//		System.out.println("=关联规则==========");
 		//		Map<String, Double> relationRulesMap = apriori2.getRelationRules(frequentSetMap);

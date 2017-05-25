@@ -59,6 +59,6 @@ public class Funcation_IDF {
 		List<String> endList=Txt2String.readFileByLines("E:\\ceping\\feature\\end_feature.txt");
 		List<String> idfList=Txt2String.readFileByLines("E:\\ceping\\jieba_idf\\idf_all.txt");
 		List<String> featureIDFList=getFeatureIDF(endList,idfList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba_idf_juzhen\\feature_idf.txt", featureIDFList);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba_idf\\feature_idf.txt", featureIDFList);
 	}
 }
