@@ -197,29 +197,29 @@ public class NativeBayes {
 
 
 		//2.计算pwc
-		//		List<String> wordNum=Txt2String.readFileByLines("E:\\ceping\\jieba_c_num\\num_30000.txt");
-		//		int[] word_num=String2Array.StrList2IntArray(wordNum);
-		//		V=9831;
-		//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_30000.txt");
-		//		List<String> endList=new ArrayList<String>();
-		//		for (String string : tfList) {
-		//			//System.out.println(string);
-		//			String s=calculate_pwc(string,word_num);
-		//			endList.add(s);
-		//		}
-		//		String2Txt.writeFileByLines("E:\\ceping\\bayes\\pwc_30000.txt", endList);
+				List<String> wordNum=Txt2String.readFileByLines("E:\\ceping\\jieba\\c_num\\num_4959.txt");
+				int[] word_num=String2Array.StrList2IntArray(wordNum);
+				V=4959;
+				List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_4959.txt");
+				List<String> endList=new ArrayList<String>();
+				for (String string : tfList) {
+					//System.out.println(string);
+					String s=calculate_pwc(string,word_num);
+					endList.add(s);
+				}
+				String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\pwc_4959.txt", endList);
 
 
 		//计算p(c)
-		//		List<String> list=calculate_pc();
-		//		String2Txt.writeFileByLines("E:\\ceping\\bayes\\pc.txt", list);
+//				List<String> list=calculate_pc();
+//				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\pc.txt", list);
 
 		//		double n=0;
 		List<String> list=new ArrayList<String>();
 		List<String> resultList=new ArrayList<String>();
 		List<int[]> recallList=new ArrayList<int[]>();
-		List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\bayes\\pwc_9831.txt");
-		List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\bayes\\pc.txt");
+		List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pwc_4959.txt");
+		List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pc.txt");
 		//	List<String> tfidfList=Txt2String.readFileByLines("E:\\ceping\\jieba_tfidf\\feature_4959.txt");
 		for (int i = 0; i < 18; i++) {
 			List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\test\\"+classTitle[i]+".txt");
@@ -248,9 +248,9 @@ public class NativeBayes {
 				s=s+RArray[j]+" ";
 			}
 			resultList.add(s);
-			String2Txt.writeFileByLines("E:\\ceping\\fenlei.txt", resultList);
+			String2Txt.writeFileByLines("E:\\ceping\\jieba\\fenlei.txt", resultList);
 		}	
-		String2Txt.writeFileByLines("E:\\ceping\\null_feature.txt", list);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\null_feature.txt", list);
 		double r=CalRecall(recallList);
 		double p=CalPrecision(recallList);
 		System.out.println("Recall:"+r);

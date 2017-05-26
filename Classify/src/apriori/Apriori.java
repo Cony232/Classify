@@ -275,7 +275,7 @@ public class Apriori {
 	{
 		List<String> list = new ArrayList<String>();
 		List<String> dataList = new ArrayList<String>();
-		list=Txt2String.readFileByLines("E:\\baby.txt");
+		list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data\\baby.txt");
 		  
 		
 		//		List<String> dataList = new ArrayList<>();
