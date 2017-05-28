@@ -12,9 +12,7 @@ import comm.Txt2String;
 
 public class Funcation_IDF {
 	private static double N=156000;
-	
-	
-	
+		
 	public static List<String> idf(List<String> txtList) {  
 		List<String> idfList=new ArrayList<String>();
 		for (String string : txtList) {

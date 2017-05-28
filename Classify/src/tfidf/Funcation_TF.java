@@ -62,7 +62,7 @@ public class Funcation_TF {
 			String[] tfNum=tf.split(",");
 			int[] tf_Num=String2Array.StrArray2IntArray(tfNum);
 			for (int j = 0; j < tf_Num.length; j++) {
-				tf_double[j]=tf_Num[j]/(double)Integer.parseInt(numList.get(j));
+				tf_double[j]=tf_Num[j]/(double)Integer.parseInt(numList.get(j))*1000;
 				//System.out.println(tf_double[j]);
 			}
 			String s=Double2String.Array2String(tf_double, 4);
@@ -101,14 +101,14 @@ public class Funcation_TF {
 	
 	public static void main(String[] args) {
 		//1.计算C中所有特征词的词频和
-		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_chaifen.txt");
-		List<String> wordNum=featureTF(tfList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\c_num\\num_chaifen.txt", wordNum);
+//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_chaifen.txt");
+//		List<String> wordNum=featureTF(tfList);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\c_num\\num_chaifen.txt", wordNum);
 		
-		List<List<String>> txtList=new ArrayList<List<String>>();
-	   Map<String, int[]> map=new HashMap<String, int[]>();
-		//计算每个类的tf
-		List<String> numList=new ArrayList<String>();
+//		List<List<String>> txtList=new ArrayList<List<String>>();
+//	   Map<String, int[]> map=new HashMap<String, int[]>();
+//		//计算每个类的tf
+//		List<String> numList=new ArrayList<String>();
 //		for (int i = 0; i < classTitle.length; i++) {
 //			List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_remove\\"+classTitle[i]+".txt");
 //			HashMap<String, Integer> temp=tf(list);
@@ -132,10 +132,10 @@ public class Funcation_TF {
 //		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf_juzhen\\juzhen.txt", endlist);
 		
 		//计算tf2
-//		List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba_feature_tf\\feature_tf_9831.txt");
-//		List<String> numList=Txt2String.readFileByLines("E:\\ceping\\jieba_c_num\\num.txt");
-//		List tf2List=tf2(list,numList);
-//		String2Txt.writeFileByLines("E:\\ceping\\jieba_feature_tf\\juzhen_tf2_4959_2.txt", tf2List);
+		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\feature_tf_9831.txt");
+		List<String> numList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\c_num\\num_9831.txt");
+		List tf2List=tf2(list,numList);
+		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\juzhen_tf2_9831_te.txt", tf2List);
 	}
 	
 	
