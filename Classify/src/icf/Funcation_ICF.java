@@ -3,6 +3,8 @@ package icf;
 import java.util.ArrayList;
 import java.util.List;
 
+import chi.Funcation_Chi;
+
 import comm.Double2String;
 import comm.String2Array;
 import comm.String2Txt;
@@ -26,7 +28,7 @@ public class Funcation_ICF {
 				}
 			}
 
-			double	icf_num=Math.log((C)/((double)cf));
+			double	icf_num=Math.log((C+1)/((double)cf));
 			icfList.add(word+":"+icf_num);
 		}
 		return icfList;
@@ -96,24 +98,28 @@ public class Funcation_ICF {
 	}
 
 	public static void main(String[] args) {
-		//		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\df_juzhen\\juzhen.txt");
-		//		List icfList=icf(list);
-		//		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\icf\\icf.txt", icfList);
+//				List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba\\df_juzhen\\juzhen.txt");
+//				List icfList=icf(list);
+//				String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\icf.txt", icfList);
 
 
-		//		List<String> endList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature\\end_feature.txt");
-		//		List<String> icfList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\icf\\icf.txt");
-		//		List<String> featureICFList=getFeatureICF(endList,icfList);
-		//		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\icf\\feature_icf.txt", featureICFList);
+//				List<String> endList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature\\end_feature.txt");
+//				List<String> icfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\icf.txt");
+//				List<String> featureICFList=getFeatureICF(endList,icfList);
+//				String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\feature_icf.txt", featureICFList);
 		//		
 		//		
-		List<String> tfList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\tf_juzhen\\juzhen.txt");
-		List<String> icfList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\icf\\icf.txt");
-		List tficfList=tficf(tfList, icfList);
-		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\icf\\tficf.txt", tficfList);
+//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\tf_juzhen\\juzhen.txt");
+//		List<String> icfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\icf.txt");
+//		List tficfList=tficf(tfList, icfList);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\tficf.txt", tficfList);
 		
-//		List<String> tficfList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\icf\\tficf.txt");
+//		List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf.txt");
 //		List<String> tficfList2=getMax(tficfList);
-//		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\icf\\tficf_max.txt", tficfList2);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\tficf_max.txt", tficfList2);
+		
+		List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf_max.txt");
+		List<String> maxlist=Funcation_Chi.SortFeature(tficfList);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\sort_tficf.txt", maxlist);
 	}
 }

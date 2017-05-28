@@ -81,7 +81,7 @@ public class CommonCal {
 	public static Map<String,String> String2Map(List<String> list){
 		Map<String,String> map=new HashMap<String,String>();
 		for (String string : list) {
-			int i=string.indexOf(":");
+			int i=string.indexOf(";");
 			//System.out.println(string);
 			String word=string.substring(0,i);
 			String tf=string.substring(i+1);

@@ -101,9 +101,9 @@ public class Funcation_TF {
 	
 	public static void main(String[] args) {
 		//1.计算C中所有特征词的词频和
-//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_chaifen.txt");
-//		List<String> wordNum=featureTF(tfList);
-//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\c_num\\num_chaifen.txt", wordNum);
+		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_icf_11501.txt");
+		List<String> wordNum=featureTF(tfList);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\c_num\\num_icf_11501.txt", wordNum);
 		
 //		List<List<String>> txtList=new ArrayList<List<String>>();
 //	   Map<String, int[]> map=new HashMap<String, int[]>();
@@ -132,10 +132,10 @@ public class Funcation_TF {
 //		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf_juzhen\\juzhen.txt", endlist);
 		
 		//计算tf2
-		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\feature_tf_9831.txt");
-		List<String> numList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\c_num\\num_9831.txt");
-		List tf2List=tf2(list,numList);
-		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\juzhen_tf2_9831_te.txt", tf2List);
+//		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\feature_tf_9831.txt");
+//		List<String> numList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\c_num\\num_9831.txt");
+//		List tf2List=tf2(list,numList);
+//		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\juzhen_tf2_9831_te.txt", tf2List);
 	}
 	
 	

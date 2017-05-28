@@ -94,7 +94,7 @@ public class Funcation_Chi {
 		Map<String,Double> maxMap=new HashMap<String,Double>();
 		List<String> endList=new ArrayList<String>();
 		for (String string : maxList) {
-			int i=string.indexOf(";");
+			int i=string.indexOf(":");
 			String word=string.substring(0, i);
 			String value=string.substring(i+1);
 			double num=Double.valueOf(value).doubleValue();
@@ -109,7 +109,7 @@ public class Funcation_Chi {
 			}
 		});
 		for(Map.Entry<String,Double> mapping:infoIds){   
-			endList.add(mapping.getKey()+";"+mapping.getValue());   
+			endList.add(mapping.getKey()+":"+mapping.getValue());   
 		}   
 		return endList;
 	}
@@ -119,11 +119,11 @@ public class Funcation_Chi {
 		List<String> list=new ArrayList<String>();
 		for (int i = 0; i <endList.size(); i++) {
 			String string=endList.get(i);
-			int j=string.indexOf(";");
+			int j=string.indexOf(":");
 			String word=string.substring(0, j);
 			for (int k = 0; k < tfList.size(); k++) {
 				String s=tfList.get(k);
-				int m=s.indexOf(";");
+				int m=s.indexOf(":");
 				String term=s.substring(0, m);
 				if(word.equals(term)){
 					list.add(tfList.get(k));
@@ -171,11 +171,11 @@ public class Funcation_Chi {
 //				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\feature\\end_feature.txt", list);//最大chi排序
 
 		//4.按chi从大到小排序词的tf矩阵(jieba_tf_feature.txt)
-		List<String> endList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\feature\\end_feature.txt");
+		List<String> endList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\feature_icf_11501.txt");
 		//	System.out.println(endList.get(0));
-		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\tf_juzhen\\juzhen.txt");	
+		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf.txt");	
 		List<String> list=getFeatureTF(endList, tfList);
-		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\feature_tf\\feature_tf.txt", list);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\feature_tficf_11501.txt", list);
 
 		//拆分计算chi并排序
 		//		for (int i = 0; i < classTitle.length; i++) {

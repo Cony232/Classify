@@ -15,11 +15,12 @@ public class NativeBayes {
 	private static double N=156000;
 	private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
 	private static double V=0;
+	private static List<String> resultP=new ArrayList<String>();
 	//计算p(w|c)
 	public static String calculate_pwc(String tfString,int[] word_num) {
 		double result=0;
 		double[] endStr=new double[18];
-		int i=tfString.indexOf(":");
+		int i=tfString.indexOf(";");
 		String word=tfString.substring(0,i);
 		String tf=tfString.substring(i+1);
 		String[] tfNum=tf.split(",");
@@ -27,11 +28,11 @@ public class NativeBayes {
 		for (int j = 0; j < tf_num.length; j++) {
 			double up=tf_num[j]+1;
 			double down=word_num[j]+V;
-			result=up/down;
+			result=up/down*100;
 			endStr[j]=result;
 		}
 		String s=Double2String.Array2String(endStr,5);
-		return word+":"+s;
+		return word+";"+s;
 	}
 
 
@@ -103,7 +104,7 @@ public class NativeBayes {
 					d =d*list1.get(j)[i];
 					//System.out.println(i+":"+list1.get(j)[i]);
 				}
-				result=d*pcArray[i]*100;
+				result=d*pcArray[i]*10000;
 				//	System.out.println(i+":"+result);
 				endP[i]=result;
 				if(result>max){
@@ -111,6 +112,7 @@ public class NativeBayes {
 					index=i;	
 				}		
 			}
+			resultP.add(Double2String.Array2String(endP, 4));
 		}
 		//String str=Double2String.Array2String(endP, 4);
 		//System.out.println("index:"+index);
@@ -165,6 +167,7 @@ public class NativeBayes {
 		double R=0.0;
 		double[] N={2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000,2000};
 		for (int i = 0; i < recallList.size(); i++) {
+		//	System.out.println(recallList.size());
 			int[] temp=recallList.get(i);
 			R=R+temp[i]/N[i];
 			//System.out.println(R);
@@ -197,32 +200,34 @@ public class NativeBayes {
 
 
 		//2.计算pwc
-//				List<String> wordNum=Txt2String.readFileByLines("E:\\ceping\\jieba\\c_num\\num_4959.txt");
-//				int[] word_num=String2Array.StrList2IntArray(wordNum);
-//				V=4959;
-//				List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_4959.txt");
-//				List<String> endList=new ArrayList<String>();
-//				for (String string : tfList) {
-//					//System.out.println(string);
-//					String s=calculate_pwc(string,word_num);
-//					endList.add(s);
-//				}
-//				String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\pwc_4959.txt", endList);
+//						List<String> wordNum=Txt2String.readFileByLines("E:\\ceping\\nlpir\\c_num\\num_10000.txt");
+//						int[] word_num=String2Array.StrList2IntArray(wordNum);
+//						V=10000;
+//						List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\feature_tf\\feature_tf_10000.txt");
+//						List<String> endList=new ArrayList<String>();
+//						for (String string : tfList) {
+//							//System.out.println(string);
+//							String s=calculate_pwc(string,word_num);
+//							endList.add(s);
+//						}
+//						String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\pwc_10000.txt", endList);
 
 
 		//计算p(c)
-//				List<String> list=calculate_pc();
-//				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\pc.txt", list);
+		//				List<String> list=calculate_pc();
+		//				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\pc.txt", list);
 
 		//		double n=0;
 		List<String> list=new ArrayList<String>();
+		List<String> errorList=new ArrayList<String>();
 		List<String> resultList=new ArrayList<String>();
 		List<int[]> recallList=new ArrayList<int[]>();
-		List<String> pwcList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\bayes\\pwc_9831.txt");
-		List<String> pcList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\bayes\\pc.txt");
-			//List<String> tficfList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\icf\\tficf_9831.txt");
+	    List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\bayes\\pwc_10000.txt");
+	
+		List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\bayes\\pc.txt");
+		//List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\feature_tficf_11501.txt");
 		for (int i = 0; i < 18; i++) {
-			List<String> txtList=Txt2String.readFileByLines("E:\\work\\Classify\\test\\"+classTitle[i]+".txt");
+			List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\test\\"+classTitle[i]+".txt");
 			Map<String,String> pwcMap=CommonCal.String2Map(pwcList);
 			//Map<String,String> tficfMap=CommonCal.String2Map(tficfList);
 			int[] RArray=new int[18];
@@ -230,27 +235,34 @@ public class NativeBayes {
 				String string=txtList.get(j);
 				//System.out.println(string);
 				List<String> term_pcwList=getFeature(string,pwcMap);
-			//	List<String> term_tfidfList=getFeature(string,tficfMap);
+				//List<String> term_tfidfList=getFeature(string,tficfMap);
 				if(term_pcwList.size()==0){
 					list.add(classTitle[i]+":"+string);
-				}
-				int index=doBayes(term_pcwList, pcList);
-				//int index=doBayes2(term_pcwList, pcList,term_tfidfList);
-
-				if(index!=-1){
-					RArray[index]+=1;
+				}else{
+					int index=doBayes(term_pcwList, pcList);
+					//int index=doBayes2(term_pcwList, pcList,term_tfidfList);
+					if(index!=-1){
+						RArray[index]+=1;
+						if(index!=i){
+							errorList.add(string+"  T:"+classTitle[i]+" F:"+classTitle[index]+" "+resultP.get(resultP.size()-1));
+						}
+					}
+					
 				}
 			}
 			recallList.add(RArray);
 			String s="";
-			
-			for (int j = 0; j < RArray.length; j++) {
-				s=s+RArray[j]+" ";
+			//System.out.println(RArray.length);
+			for (int k = 0; k < RArray.length; k++) {
+				s=s+RArray[k]+" ";
 			}
 			resultList.add(s);
-			String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\fenlei.txt", resultList);
-		}	
-		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\null_feature.txt", list);
+
+
+		}
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\fenlei.txt", resultList);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\null_feature.txt", list);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\error.txt", errorList);
 		double r=CalRecall(recallList);
 		double p=CalPrecision(recallList);
 		System.out.println("Recall:"+r);
