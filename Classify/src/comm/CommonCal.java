@@ -19,7 +19,7 @@ public class CommonCal {
 				int[] num=(int[]) entry.getValue();
 				String value=Arrays.toString(num);
 				value=value.replaceAll(" ","");
-				String str=entry.getKey()+";"+value.substring(1, value.length()-1);
+				String str=entry.getKey()+":"+value.substring(1, value.length()-1);
 				list.add(str);     
 			} 		
 		}
@@ -47,8 +47,8 @@ public class CommonCal {
 	 */
 	public static Map<String, int[]> calculate_juzhen(List<String> txtList,Map<String, int[]> map,int i) {  
 		for (String string : txtList) {
-		//	String[] termlist=string.split(":");//我们:1 jieba
-			String[] termlist=string.split(";");//我们;1 nlpir
+			String[] termlist=string.split(":");//我们:1 jieba
+			//String[] termlist=string.split(";");//我们;1 nlpir
 			int[] num=new int[18];
 			if (!map.containsKey(termlist[0])) {//如果矩阵中不包含w,加入该w的df
 				
@@ -81,7 +81,7 @@ public class CommonCal {
 	public static Map<String,String> String2Map(List<String> list){
 		Map<String,String> map=new HashMap<String,String>();
 		for (String string : list) {
-			int i=string.indexOf(";");
+			int i=string.indexOf(":");
 			//System.out.println(string);
 			String word=string.substring(0,i);
 			String tf=string.substring(i+1);

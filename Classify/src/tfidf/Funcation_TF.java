@@ -16,7 +16,7 @@ import comm.Txt2String;
 public class Funcation_TF { 
 	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
 		"history","military","regimen","society","sports","story","tech","travel","world"};
-	
+
 	public static HashMap<String, Integer> tf(List<String> txtList) {  
 		HashMap<String, Integer>  hashMap= new HashMap<String, Integer>();
 		for (String string : txtList) {
@@ -37,20 +37,20 @@ public class Funcation_TF {
 	public static List<String> Map2List1(HashMap<String, Integer> map){
 		Iterator<Entry<String, Integer>> iterator = map.entrySet().iterator();
 		List<String> list=new ArrayList<String>();
-		Integer n=0;
+		//Integer n=0;
 		while(iterator.hasNext()){
 			while(iterator.hasNext()){
 				Entry<String, Integer> entry = (Entry<String, Integer>) iterator.next(); 
-				String str=entry.getKey()+";"+entry.getValue();// nlpir
-			//	String str=entry.getKey()+":"+entry.getValue();// jieba
-				n=n+entry.getValue();
+				//String str=entry.getKey()+";"+entry.getValue();// nlpir
+				String str=entry.getKey()+":"+entry.getValue();// jieba
+				//	n=n+entry.getValue();
 				list.add(str);      
 			} 		
 		}
 		//list.add(""+n);
 		return list;
 	}
-	
+
 	//tf频率
 	public static List<String> tf2(List<String> txtList,List<String> numList) {  
 		List<String> tfList=new ArrayList<String>();
@@ -71,7 +71,7 @@ public class Funcation_TF {
 		return tfList;	
 	}  
 
-	
+
 	public static List<String> featureTF(List<String> list){
 		List<String> wordList=new ArrayList<String>();
 		List<String> featureTF_Num=new ArrayList<String>();
@@ -98,45 +98,56 @@ public class Funcation_TF {
 		}
 		return featureTF_Num;
 	}
-	
+
+
+	public static List<String>  string2tfjuzhen(List<List<String>> txtList){
+		Map<String, int[]> map=new HashMap<String, int[]>();
+		for (int i = 0; i < txtList.size(); i++) {
+			HashMap<String, Integer> temp=tf(txtList.get(i));
+			List<String> tfList=Map2List1(temp);
+			map=CommonCal.calculate_juzhen(tfList, map, i); 
+		} 
+		List<String> endlist=CommonCal.Map2List2(map);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\incre\\tf_juzhen.txt", endlist);
+		return endlist;
+	}
+
 	public static void main(String[] args) {
 		//1.计算C中所有特征词的词频和
 		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_icf_11501.txt");
 		List<String> wordNum=featureTF(tfList);
 		String2Txt.writeFileByLines("E:\\ceping\\jieba\\c_num\\num_icf_11501.txt", wordNum);
-		
-//		List<List<String>> txtList=new ArrayList<List<String>>();
-//	   Map<String, int[]> map=new HashMap<String, int[]>();
-//		//计算每个类的tf
-//		List<String> numList=new ArrayList<String>();
-//		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_remove\\"+classTitle[i]+".txt");
-//			HashMap<String, Integer> temp=tf(list);
-//			List<String> list1=Map2List1(temp);
-//			//String str=list1.get(list1.size()-1);
-//			//numList.add(str);
-//			list1.remove(list1.size()-1);
-//			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf\\"+classTitle[i]+".txt", list1);
-//		}
 
-//		
+		//		List<List<String>> txtList=new ArrayList<List<String>>();
+		//	   Map<String, int[]> map=new HashMap<String, int[]>();
+		//		//计算每个类的tf
+		//		List<String> numList=new ArrayList<String>();
+		//		for (int i = 0; i < classTitle.length; i++) {
+		//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_remove\\"+classTitle[i]+".txt");
+		//			HashMap<String, Integer> temp=tf(list);
+		//			List<String> list1=Map2List1(temp);
+		//			list1.remove(list1);
+		//			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf\\"+classTitle[i]+".txt", list1);
+		//		}
+
+		//		
 		//计算tf矩阵(tf_all.txt)
-//		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\nlpir\\jieba_tf\\"+classTitle[i]+".txt");
-//			txtList.add(list2);
-//		}
-//		for (int j = 0; j < txtList.size(); j++) {
-//			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
-//		}
-//		List<String> endlist=CommonCal.Map2List2(map);
-//		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf_juzhen\\juzhen.txt", endlist);
-		
+		//		for (int i = 0; i < classTitle.length; i++) {
+		//			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\nlpir\\jieba_tf\\"+classTitle[i]+".txt");
+		//			txtList.add(list2);
+		//		}
+		//		for (int j = 0; j < txtList.size(); j++) {
+		//			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
+		//		}
+		//		List<String> endlist=CommonCal.Map2List2(map);
+		//		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf_juzhen\\juzhen.txt", endlist);
+
 		//计算tf2
-//		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\feature_tf_9831.txt");
-//		List<String> numList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\c_num\\num_9831.txt");
-//		List tf2List=tf2(list,numList);
-//		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\juzhen_tf2_9831_te.txt", tf2List);
+		//		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\feature_tf_9831.txt");
+		//		List<String> numList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\c_num\\num_9831.txt");
+		//		List tf2List=tf2(list,numList);
+		//		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\juzhen_tf2_9831_te.txt", tf2List);
 	}
-	
-	
+
+
 }
