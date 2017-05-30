@@ -28,7 +28,7 @@ public class Funcation_ICF {
 				}
 			}
 
-			double	icf_num=Math.log((C+1)/((double)cf));
+			double	icf_num=Math.log((double)(C)/((double)cf));
 			icfList.add(word+":"+icf_num);
 		}
 		return icfList;
@@ -61,13 +61,18 @@ public class Funcation_ICF {
 			String string=tfList.get(j);
 			int i=string.indexOf(":");
 			String word=string.substring(0,i);
-			String tf=string.substring(i+1);
+			String tf=string.substring(i+1);System.out.println(i);
 			String[] tfNum=tf.split(",");
 			double[] tf_num=String2Array.StrArray2DouArray(tfNum);
+			int im=icfList.get(j).indexOf(":");
+			
+		//	System.out.println(im);
+			String w=icfList.get(j).substring(im+1);
+			double icf=Double.valueOf(w);
 			for (int k = 0; k < tf_num.length; k++) {
 				//System.out.println(icfList.get(j));
-				double icf=Double.valueOf(icfList.get(j).substring(i+2));
-				//System.out.println(icf);
+			
+			
 				tfidf_double[k]=tf_num[k]*icf;
 
 			}
@@ -98,9 +103,9 @@ public class Funcation_ICF {
 	}
 
 	public static void main(String[] args) {
-//				List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba\\df_juzhen\\juzhen.txt");
+//				List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_tf\\juzhen.txt");
 //				List icfList=icf(list);
-//				String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\icf.txt", icfList);
+//				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\only_icf\\icf.txt", icfList);
 
 
 //				List<String> endList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature\\end_feature.txt");
@@ -109,17 +114,17 @@ public class Funcation_ICF {
 //				String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\feature_icf.txt", featureICFList);
 		//		
 		//		
-//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\tf_juzhen\\juzhen.txt");
-//		List<String> icfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\icf.txt");
+//		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_tf\\juzhen.txt");
+//		List<String> icfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\icf.txt");
 //		List tficfList=tficf(tfList, icfList);
-//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\tficf.txt", tficfList);
-		
-//		List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf.txt");
+//		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf.txt", tficfList);
+//		
+//		List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf.txt");
 //		List<String> tficfList2=getMax(tficfList);
-//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\tficf_max.txt", tficfList2);
+//		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf_max.txt", tficfList2);
 		
-		List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf_max.txt");
+		List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf_max.txt");
 		List<String> maxlist=Funcation_Chi.SortFeature(tficfList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\sort_tficf.txt", maxlist);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf_sort.txt", maxlist);
 	}
 }

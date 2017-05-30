@@ -42,7 +42,7 @@ public class Funcation_TF {
 			while(iterator.hasNext()){
 				Entry<String, Integer> entry = (Entry<String, Integer>) iterator.next(); 
 				//String str=entry.getKey()+";"+entry.getValue();// nlpir
-				String str=entry.getKey()+":"+entry.getValue();// jieba
+				String str=entry.getKey()+";"+entry.getValue();// jieba
 				//	n=n+entry.getValue();
 				list.add(str);      
 			} 		
@@ -76,7 +76,7 @@ public class Funcation_TF {
 		List<String> wordList=new ArrayList<String>();
 		List<String> featureTF_Num=new ArrayList<String>();
 		List<int[]> tfList=new ArrayList<int[]>();
-		for (String string : list) {
+		for (String string : list) {System.out.println(string);
 			int i=string.indexOf(":");
 			String word=string.substring(0,i);
 			wordList.add(word);
@@ -108,18 +108,18 @@ public class Funcation_TF {
 			map=CommonCal.calculate_juzhen(tfList, map, i); 
 		} 
 		List<String> endlist=CommonCal.Map2List2(map);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\incre\\tf_juzhen.txt", endlist);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\tf_juzhen.txt", endlist);
 		return endlist;
 	}
 
 	public static void main(String[] args) {
 		//1.计算C中所有特征词的词频和
-		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\feature_tf\\feature_tf_icf_11501.txt");
+		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\feature_tf\\feature_24643_reonly.txt");
 		List<String> wordNum=featureTF(tfList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\c_num\\num_icf_11501.txt", wordNum);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\c_num\\reonly_24643_num.txt", wordNum);
 
-		//		List<List<String>> txtList=new ArrayList<List<String>>();
-		//	   Map<String, int[]> map=new HashMap<String, int[]>();
+				List<List<String>> txtList=new ArrayList<List<String>>();
+			   Map<String, int[]> map=new HashMap<String, int[]>();
 		//		//计算每个类的tf
 		//		List<String> numList=new ArrayList<String>();
 		//		for (int i = 0; i < classTitle.length; i++) {
@@ -132,15 +132,16 @@ public class Funcation_TF {
 
 		//		
 		//计算tf矩阵(tf_all.txt)
-		//		for (int i = 0; i < classTitle.length; i++) {
-		//			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\nlpir\\jieba_tf\\"+classTitle[i]+".txt");
-		//			txtList.add(list2);
-		//		}
-		//		for (int j = 0; j < txtList.size(); j++) {
-		//			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
-		//		}
-		//		List<String> endlist=CommonCal.Map2List2(map);
-		//		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_tf_juzhen\\juzhen.txt", endlist);
+////		List<List<String>> txtList=new ArrayList<List<String>>();
+//				for (int i = 0; i < classTitle.length; i++) {
+//					List<String> list2=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_biaozhu_only\\"+classTitle[i]+".txt");
+//					txtList.add(list2);
+//				}
+//				for (int j = 0; j < txtList.size(); j++) {
+//					map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
+//				}
+//				List<String> endlist=CommonCal.Map2List2(map);
+//				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\only_tf\\juzhen.txt", endlist);
 
 		//计算tf2
 		//		List<String> list=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\feature_tf\\feature_tf_9831.txt");

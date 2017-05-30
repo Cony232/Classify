@@ -47,12 +47,13 @@ public class IncreLearning {
 		Map<String,String> pwcMap=CommonCal.String2Map(pwcList);
 		Map<String,String> TFMap=CommonCal.String2Map(newTFList);
 		List<String> newPwc=new ArrayList<String>();
+		int flag=0;
 		for (String string : pwcMap.keySet()) {
 			//System.out.println(string);
 			String pwc=pwcMap.get(string);
 			String[] pwcArray=pwc.split(",");
 			double[] pwc_Num=String2Array.StrArray2DouArray(pwcArray);
-			if(TFMap.containsKey(string)){
+			if(TFMap.containsKey(string)){flag++;
 				String tf=TFMap.get(string);
 				String[] tfArray=tf.split(",");
 				int[] tf_Num=String2Array.StrArray2IntArray(tfArray);
@@ -61,27 +62,43 @@ public class IncreLearning {
 					//System.out.println(V[i]);
 				}
 				TFMap.remove(string);
-				newPwc.add(string+":"+Double2String.Array2String(pwc_Num, 4));
+				newPwc.add(string+";"+Double2String.Array2String(pwc_Num, 4));
 			}else{
 				for (int i = 0; i < pwc_Num.length; i++) {
 					pwc_Num[i]=(V[i]/(V[i]+sumTF[i]))*pwc_Num[i];
 				}
-				newPwc.add(string+":"+Double2String.Array2String(pwc_Num, 4));
+				newPwc.add(string+";"+Double2String.Array2String(pwc_Num, 4));
 			}
 		}
-//		if(TFMap.size()>0){
-//			for (String string : TFMap.keySet()) {
-//				String tf=TFMap.get(string);
+		System.out.println(flag);
+//		if(TFMap2.size()>0){
+//			for (String string : TFMap2.keySet()) {
+//				String tf=TFMap2.get(string);
 //				String[] tfArray=tf.split(",");
 //				int[] tf_Num=String2Array.StrArray2IntArray(tfArray);
 //				double[] pwc_Num=new double[18];
 //				for (int i = 0; i < pwc_Num.length; i++) {
-//					pwc_Num[i]=(tf_Num[i]/(V[i]+sumTF[i]));
+//					pwc_Num[i]=(tf_Num[i]/(sumTF2[i]));
 //				}
 //				newPwc.add(string+":"+Double2String.Array2String(pwc_Num, 4));
 //			}
 //		}
 		return newPwc;
+	}
+	
+	public static List<String> chaifenTF(List<String> newTFList,List<String> featureList){
+		Map<String,String> pwcMap=CommonCal.String2Map(featureList);
+		Map<String,String> TFMap=CommonCal.String2Map(newTFList);
+		List<String> featureTF=new ArrayList<String>();
+		List<String> unfeatureTF=new ArrayList<String>();
+		for (String string : TFMap.keySet()) {//System.out.println(string);
+			if(pwcMap.containsKey(string)){
+				featureTF.add(string+";"+TFMap.get(string));
+				//TFMap.remove(string);
+			}
+		}
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\incre\\tf_juzhen.txt", featureTF);
+		return featureTF;
 	}
 
 	public static void main(String[] args) {
@@ -90,13 +107,13 @@ public class IncreLearning {
 		//		int[] newD={1,2,1};
 		//		List<String> pcList2=changePc(pcList,newD,4);
 		//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\pc_test.txt", pcList2);
-		List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pwc_test.txt");
-		double[] sumTF={6,4};
-		double[] V={5,6};
-		List<String> newTFList=new ArrayList<String>();
-		newTFList.add("你好:5,2");
-		newTFList.add("大家:1,2");
-		List<String> pwcList2=changePWC(pwcList, newTFList, V, sumTF);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\pwc_test_2.txt", pwcList2);
+//		List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pwc_test.txt");
+//		double[] sumTF={6,4};
+//		double[] V={5,6};
+//		List<String> newTFList=new ArrayList<String>();
+//		newTFList.add("你好:5,2");
+//		newTFList.add("大家:1,2");
+//	//	List<String> pwcList2=changePWC(pwcList, newTFList, V, sumTF);
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\pwc_test_2.txt", pwcList2);
 	}
 }

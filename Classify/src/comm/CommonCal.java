@@ -51,7 +51,7 @@ public class CommonCal {
 			//String[] termlist=string.split(";");//我们;1 nlpir
 			int[] num=new int[18];
 			if (!map.containsKey(termlist[0])) {//如果矩阵中不包含w,加入该w的df
-				
+				 
 				num[i]=Integer.parseInt(termlist[1]);
 				map.put(termlist[0],num);
 			} else {//如果存在，获取这个值，给对应的c位置赋值
@@ -81,8 +81,8 @@ public class CommonCal {
 	public static Map<String,String> String2Map(List<String> list){
 		Map<String,String> map=new HashMap<String,String>();
 		for (String string : list) {
-			int i=string.indexOf(":");
-			//System.out.println(string);
+			int i=string.indexOf(";");
+		
 			String word=string.substring(0,i);
 			String tf=string.substring(i+1);
 			map.put(word, tf);

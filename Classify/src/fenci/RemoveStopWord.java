@@ -32,6 +32,8 @@ public class RemoveStopWord {
 		return true; 
 	}
 	
+ 
+	
 	public static List<String> removeWord(List<String> endList) {
 		List<String> endList2=new ArrayList<String>();//分词和去停用词过后的
 		System.out.println("开始读取停用词表");
@@ -88,9 +90,9 @@ public class RemoveStopWord {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < classTitle.length; i++) {
-			List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\test\\"+classTitle[i]+".txt");
+			List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_biaozhu\\"+classTitle[i]+".txt");
 			List<String> endList=removeWord(txtList);
-			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\test\\"+classTitle[i]+".txt", endList);
+			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\data_biaozhu_re\\"+classTitle[i]+".txt", endList);
 			
 		}
 //		List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\test\\game.txt");

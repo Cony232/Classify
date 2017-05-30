@@ -171,11 +171,11 @@ public class Funcation_Chi {
 //				String2Txt.writeFileByLines("E:\\ceping\\nlpir\\feature\\end_feature.txt", list);//最大chi排序
 
 		//4.按chi从大到小排序词的tf矩阵(jieba_tf_feature.txt)
-		List<String> endList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\feature_icf_11501.txt");
+		List<String> endList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf_1060.txt");
 		//	System.out.println(endList.get(0));
-		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf.txt");	
+		List<String> tfList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\tficf.txt");	
 		List<String> list=getFeatureTF(endList, tfList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\icf\\feature_tficf_11501.txt", list);
+		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\only_icf\\feature_tficf_1060.txt", list);
 
 		//拆分计算chi并排序
 		//		for (int i = 0; i < classTitle.length; i++) {
