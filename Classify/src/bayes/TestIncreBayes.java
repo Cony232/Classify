@@ -26,14 +26,14 @@ public class TestIncreBayes {
 		}
 		List<List<String>> txtList=new ArrayList<List<String>>();
 		for (int i = 0; i < 18; i++) {
-			List<String> onetxtList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\test\\"+classTitle[i]+".txt");
+			List<String> onetxtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test\\"+classTitle[i]+".txt");
 			txtList.add(onetxtList);
 		}
 		List<List<String>> nullFeature=new ArrayList<List<String>>();
 		for (int i = 0; i < 10; i++) {
 			List<List<String>> trueList=new ArrayList<List<String>>();
-			List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\pwc.txt");
-			List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\pc.txt");
+			List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\incre\\pwc.txt");
+			List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\incre\\pc.txt");
 			Map<String,String> pwcMap=CommonCal.String2Map(pwcList);
 			for (int j = 0; j < txtList.size(); j++) {
 			//	int[] RArray=new int[18];
@@ -65,34 +65,34 @@ public class TestIncreBayes {
 			}
 
 			
-			List<String> pwList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\pwc.txt");
+			List<String> pwList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\incre\\pwc.txt");
 			
 			//更新pwc
 			List<String> newTFList=Funcation_TF.string2tfjuzhen(trueList);	
-			List<String> newTFList2=IncreLearning.chaifenTF(newTFList, pwList);
-			List<String> sumTF=Funcation_TF.featureTF(newTFList2);
+			//List<String> newTFList2=IncreLearning.chaifenTF(newTFList, pwList);
+			List<String> sumTF=Funcation_TF.featureTF(newTFList);
 			double[] sumTFArray=String2Array.StrList2DouArray(sumTF);
-			List<String> V=Txt2String.readFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\V.txt");
+			List<String> V=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\incre\\V.txt");
 			double[] VArray=String2Array.StrList2DouArray(V);
-			List<String> pwcList2=IncreLearning.changePWC(pwcList, newTFList2, VArray, sumTFArray);
+			List<String> pwcList2=IncreLearning.changePWC(pwcList, newTFList, VArray, sumTFArray);
 			List<String> newVList= new ArrayList<String>();
 			for (int j = 0; j < VArray.length; j++) {
 				VArray[j]=VArray[j]+sumTFArray[j];
 				newVList.add(""+VArray[j]);
 			}
-			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\V.txt", newVList);
-			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\pwc.txt", pwcList2);
+			String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\incre\\V.txt", newVList);
+			String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\incre\\pwc.txt", pwcList2);
 			
 			//更新pc
 			int[] newD=new int[18];
-			int num=0;
+			double num=0;
 			for (int j = 0; j < trueList.size(); j++) {
 				//System.out.println(trueList.get(j).size());
 				newD[j]=trueList.get(j).size();
 				num=num+newD[j];
 			}
 			List<String> pcList2=IncreLearning.changePc(pcList,newD,num);
-			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\incre\\pc.txt", pcList2);
+			String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\incre\\pc.txt", pcList2);
 		}
 		double r=NativeBayes.CalRecall(resultList);
 		double p=NativeBayes.CalPrecision(resultList);
@@ -104,8 +104,8 @@ public class TestIncreBayes {
 			}
 			 l.add(s);
 		}
-		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\error.txt", fList);
-		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\bayes\\fenlei.txt", l);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\error.txt", fList);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes\\fenlei.txt", l);
 		System.out.println("Recall:"+r);
 		System.out.println("Precision:"+p);
 	}

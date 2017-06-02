@@ -36,24 +36,35 @@ public class Funcation_DF {
 		return hashMap;	
 	}
 
+	public static List<String>  string2tfjuzhen(List<List<String>> txtList){
+		Map<String, int[]> map=new HashMap<String, int[]>();
+		for (int i = 0; i < txtList.size(); i++) {
+			HashMap<String, Integer> temp=df(txtList.get(i));
+			List<String> dfList=Funcation_TF.Map2List1(temp);
+			map=CommonCal.calculate_juzhen(dfList, map, i); 
+		} 
+		List<String> endlist=CommonCal.Map2List2(map);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\df_juzhen.txt", endlist);
+		return endlist;
+	}
 
 	public static void main(String[] args)  {
 
 
 //		//计算df
 
-//		for (int i = 0; i < classTitle.length; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\nlpir\\data_remove\\"+classTitle[i]+".txt");
-//			HashMap<String, Integer> temp=df(list);
-//			List list1=Funcation_TF.Map2List1(temp);
-//			String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_df\\"+classTitle[i]+".txt", list1);
-//		}
+		for (int i = 0; i < 3; i++) {
+			List<String> list=Txt2String.readFileByLines("E:\\ceping\\demo\\data\\"+classTitle[i]+".txt");
+			HashMap<String, Integer> temp=df(list);
+			List list1=Funcation_TF.Map2List1(temp);
+			String2Txt.writeFileByLines("E:\\ceping\\demo\\df\\"+classTitle[i]+".txt", list1);
+		}
 //		
 		//计算df矩阵
 		List<List<String>> txtList=new ArrayList<List<String>>();
 	    Map<String, int[]> map=new HashMap<String, int[]>();
-		for (int i = 0; i < classTitle.length; i++) {
-			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\nlpir\\jieba_df\\"+classTitle[i]+".txt");
+		for (int i = 0; i < 3; i++) {
+			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\demo\\df\\"+classTitle[i]+".txt");
 			txtList.add(list2);
 		}
 		for (int j = 0; j < txtList.size(); j++) {
@@ -61,7 +72,7 @@ public class Funcation_DF {
 			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
 		}
 		List<String> endlist=CommonCal.Map2List2(map);
-		String2Txt.writeFileByLines("E:\\ceping\\nlpir\\jieba_df_juzhen\\juzhen.txt", endlist);
+		String2Txt.writeFileByLines("E:\\ceping\\demo\\df_juzhen\\juzhen.txt", endlist);
 	    
 		
 		//拆分df_juzhen
