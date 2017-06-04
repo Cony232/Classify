@@ -48,6 +48,10 @@ public class CommonCal {
 	public static Map<String, int[]> calculate_juzhen(List<String> txtList,Map<String, int[]> map,int i) {  
 		for (String string : txtList) {
 			String[] termlist=string.split(":");//我们:1 jieba
+			if(termlist.length>2){
+				termlist[0]=termlist[0]+termlist[1];
+				termlist[1]=termlist[2];
+			}
 			//String[] termlist=string.split(";");//我们;1 nlpir
 			int[] num=new int[18];
 			if (!map.containsKey(termlist[0])) {//如果矩阵中不包含w,加入该w的df

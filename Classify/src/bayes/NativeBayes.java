@@ -255,7 +255,7 @@ public class NativeBayes {
 		List<String> errorList=new ArrayList<String>();
 		List<String> resultList=new ArrayList<String>();
 		List<int[]> recallList=new ArrayList<int[]>();
-		List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pwc_9831.txt");
+		List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pwc_30000.txt");
 		//List<String> onlyList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\feature_tficf_1060.txt");
 		List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes\\pc.txt");
 		//		//List<String> tficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\tficf_9831.txt");

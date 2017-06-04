@@ -16,8 +16,9 @@ import comm.Txt2String;
 public class TestIncreBayes_df {
 	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
 		"history","military","regimen","society","sports","story","tech","travel","world"};
-	private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
-
+	//private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
+	private static double N=192000;
+	private static double txt[]={12000,12000,6000,12000,6000,12000,12000,12000,12000,12000,12000,6000,12000,12000,6000,12000,12000,12000};
 
 	public static void main(String[] args) {
 		List<String> nList=new ArrayList<String>();
@@ -28,7 +29,7 @@ public class TestIncreBayes_df {
 		}
 		List<List<String>> txtList=new ArrayList<List<String>>();
 		for (int i = 0; i < 18; i++) {
-			List<String> onetxtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test\\"+classTitle[i]+".txt");
+			List<String> onetxtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test_feature\\"+classTitle[i]+".txt");
 			txtList.add(onetxtList);
 		}
 		List<List<String>> nullFeature=new ArrayList<List<String>>();
@@ -45,6 +46,7 @@ public class TestIncreBayes_df {
 				for (int k = i*200; k < (i+1)*200; k++) {
 					//System.out.println(k);
 					String string=txtList.get(j).get(k);
+					
 					//System.out.println(string);
 					List<String> term_pcwList=NativeBayes.getFeature(string,pwcMap);
 					//List<String> term_tfidfList=getFeature(string,tficfMap);
