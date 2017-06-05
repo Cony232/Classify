@@ -93,6 +93,18 @@ public class CommonCal {
 		return map;
 	}
 
+	//停用词
+	public static Map<String,String> String2Map2(List<String> list){
+		Map<String,String> map=new HashMap<String,String>();
+		for (String string : list) {
+			int i=string.indexOf("	");
+			String word=string.substring(0,i);
+			String num=string.substring(i+1);
+			map.put(word, num);
+		}
+		return map;
+	}
+	
 	public static int calculate_sum(int[] array){
 		int num=0;
 		for (int i = 0; i < array.length; i++) {

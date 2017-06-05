@@ -4815,7 +4815,7 @@ O型 腿 身边 健康 美丽 杀手   T:regimen F:fashion
 驾照 实习期 注意事项   T:society F:car
 曝光 食物 安全隐患 天天 买   T:society F:regimen
 夏天 热 超市 里 真的   T:society F:food
-气象局 江南 华南 强降水 过程   T:society F:travel
+气象局 江南 华南 强降水 过程   T:society F:discovery
 小伙 想 出奇 招追 女神 女神 一怒 报警   T:society F:entertainment
 儿子 眼睛 人群 中 认出 妈妈   T:society F:baby
 深 航空 姐 世界 最美 网友 齐呼 坐飞机 美女   T:society F:entertainment

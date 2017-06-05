@@ -12,11 +12,11 @@ import comm.Txt2String;
 public class NativeBayes_df {
 	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
 		"history","military","regimen","society","sports","story","tech","travel","world"};
-	//	private static double N=15600;
-	//	private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
+		private static double N=15600;
+		private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
 	private static double V=0;
-	private static double N=192000;
-	private static double txt[]={12000,12000,6000,12000,6000,12000,12000,12000,12000,12000,12000,6000,12000,12000,6000,12000,12000,12000};
+//	private static double N=192000;
+//	private static double txt[]={12000,12000,6000,12000,6000,12000,12000,12000,12000,12000,12000,6000,12000,12000,6000,12000,12000,12000};
 
 	private static List<String> fList=new ArrayList<String>();
 	private static List<String> resultP=new ArrayList<String>();
@@ -251,38 +251,38 @@ public class NativeBayes_df {
 
 
 		//2.计算pwc
-		List<String> dfList=Txt2String.readFileByLines("E:\\ceping\\jieba_end_train\\feature_df\\feature_df_25284.txt");
-		List<String> endList=new ArrayList<String>();
-		for (String string : dfList) {
-			//System.out.println(string);
-			String s=calculate_pwc(string);
-			endList.add(s);
-		}
-		String2Txt.writeFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\pwc_30000.txt", endList);
+//		List<String> dfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\feature_df\\feature_df_30000.txt");
+//		List<String> endList=new ArrayList<String>();
+//		for (String string : dfList) {
+//			//System.out.println(string);
+//			String s=calculate_pwc(string);
+//			endList.add(s);
+//		}
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\bayes_df\\pwc_30000.txt", endList);
 
 
 		//计算p(c)
-		List<String> list=calculate_pc();
-		String2Txt.writeFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\pc.txt", list);
+//		List<String> list=calculate_pc();
+//		String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\bayes_df\\pc.txt", list);
 
 				double n=0;
-				//List<String> list=new ArrayList<String>();
+				List<String> list=new ArrayList<String>();
 				List<String> errorList=new ArrayList<String>();
 		
 				List<String> resultList=new ArrayList<String>();
 				List<int[]> recallList=new ArrayList<int[]>();
-				List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\pwc_30000.txt");
+				List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\bayes_df\\pwc_30000.txt");
 				//List<String> onlyList=Txt2String.readFileByLines("E:\\ceping\\nlpir\\only_icf\\feature_dficf_1060.txt");
-				List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\pc.txt");
+				List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\bayes_df\\pc.txt");
 				//List<String> dficfList=Txt2String.readFileByLines("E:\\ceping\\jieba\\icf\\dficf_9831.txt");
-				for (int i = 0; i < 18; i++) {
-					List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test\\"+classTitle[i]+".txt");
-					//List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\t_re.txt");
+ 				for (int i = 0; i < 18; i++) {
+ 					List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test\\"+classTitle[i]+".txt");
+				//	List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\test_word_re.txt");
 		
 					Map<String,String> pwcMap=CommonCal.String2Map(pwcList);
 					//Map<String,String> dficfMap   =CommonCal.String2Map(dficfList);
 					//Map<String,String> onlyMap=CommonCal.String2Map(onlyList);
-					int[] RArray=new int[18];
+				 	int[] RArray=new int[18];
 					for (int j = 0; j < txtList.size(); j++) {
 						String string=txtList.get(j);
 						//	System.out.println(string);
@@ -290,15 +290,19 @@ public class NativeBayes_df {
 						List<String> term_pcwList=getfeature(string,pwcMap);
 						//List<String> term_dfidfList=gedfeature(string,dficfMap);
 						if(term_pcwList.size()==0){
-							list.add(classTitle[i]+":"+string);//没有特征的
-		//				} else if(term_pcwList.size()==1){
-		//					list.add(classTitle[i]+":"+string);//没有特征的
+							list.add("null");//没有特征的
+							errorList.add(string);
+//						} else if(term_pcwList.size()==1){
+//							int index=doBayes(term_pcwList, pcList);
+//							if(i!=index){
+//							list.add(classTitle[i]+":"+string+"  "+classTitle[index]);//没有特征的
+//							}
 						}else{
 						
 							int index=doBayes(term_pcwList, pcList);
-							list.add(classTitle[index]);
 							RArray[index]+=1;
 							if(index!=i){
+							list.add(classTitle[index]);
 								errorList.add(string+"  T:"+classTitle[i]+" F:"+classTitle[index]);
 							} 
 						}	 
@@ -313,10 +317,10 @@ public class NativeBayes_df {
 				}
 		
 		
-				String2Txt.writeFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\fenlei.txt", resultList);
-				//String2Txt.writeFileByLines("E:\\ceping\\result.txt", list);
-				String2Txt.writeFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\error.txt", errorList);
-				String2Txt.writeFileByLines("E:\\ceping\\jieba_end_train\\bayes_df\\f.txt", fList);
+				String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\bayes_df\\fenlei.txt", resultList);
+				String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\result.txt", list);
+				String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\error.txt", errorList);
+				String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\bayes_df\\f.txt", fList);
 				double r=CalRecall(recallList);
 				double p=CalPrecision(recallList);
 				System.out.println("Recall:"+r);
