@@ -54,17 +54,17 @@ public class Funcation_DF {
 //		//计算df
 
 //		for (int i = 0; i < 18; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\data\\"+classTitle[i]+".txt");
+//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba_tijiao\\data_jieba_re\\"+classTitle[i]+".txt");
 //			HashMap<String, Integer> temp=df(list);
 //			List list1=Funcation_TF.Map2List1(temp);
-//			String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\df\\"+classTitle[i]+".txt", list1);
+//			String2Txt.writeFileByLines("E:\\ceping\\jieba_tijiao\\df\\"+classTitle[i]+".txt", list1);
 //		}
 //		
 		//计算df矩阵
 		List<List<String>> txtList=new ArrayList<List<String>>();
 	    Map<String, int[]> map=new HashMap<String, int[]>();
 		for (int i = 0; i < 18; i++) {
-			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\df\\"+classTitle[i]+".txt");
+			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_tijiao\\df\\"+classTitle[i]+".txt");
 			txtList.add(list2);
 		}
 		for (int j = 0; j < txtList.size(); j++) {
@@ -72,7 +72,7 @@ public class Funcation_DF {
 			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
 		}
 		List<String> endlist=CommonCal.Map2List2(map);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\jieba_data_re2\\df_juzhen\\juzhen.txt", endlist);
+		String2Txt.writeFileByLines("E:\\ceping\\jieba_tijiao\\df_juzhen\\juzhen.txt", endlist);
 	    
 		
 		//拆分df_juzhen
