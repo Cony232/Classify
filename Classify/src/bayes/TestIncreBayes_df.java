@@ -16,9 +16,9 @@ import comm.Txt2String;
 public class TestIncreBayes_df {
 	public static String[] classTitle={"baby","car","discovery","entertainment","essay","fashion","finance","food","game",
 		"history","military","regimen","society","sports","story","tech","travel","world"};
-	//private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
-	private static double N=192000;
-	private static double txt[]={12000,12000,6000,12000,6000,12000,12000,12000,12000,12000,12000,6000,12000,12000,6000,12000,12000,12000};
+	 private static double txt[]={10000,10000,4000,10000,4000,10000,10000,10000,10000,10000,10000,4000,10000,10000,4000,10000,10000,10000};
+//	private static double N=192000;
+//	private static double txt[]={12000,12000,6000,12000,6000,12000,12000,12000,12000,12000,12000,6000,12000,12000,6000,12000,12000,12000};
 
 	public static void main(String[] args) {
 		List<String> nList=new ArrayList<String>();
@@ -29,14 +29,14 @@ public class TestIncreBayes_df {
 		}
 		List<List<String>> txtList=new ArrayList<List<String>>();
 		for (int i = 0; i < 18; i++) {
-			List<String> onetxtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test_feature\\"+classTitle[i]+".txt");
+			List<String> onetxtList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\test\\"+classTitle[i]+".txt");
 			txtList.add(onetxtList);
 		}
 		List<List<String>> nullFeature=new ArrayList<List<String>>();
 		for (int i = 0; i <10; i++) {
 			List<List<String>> trueList=new ArrayList<List<String>>();
-			List<String> pwcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\pwc.txt");
-			List<String> pcList=Txt2String.readFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\pc.txt");
+			List<String> pwcList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\incre\\pwc.txt");
+			List<String> pcList=Txt2String.readFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\incre\\pc.txt");
 			Map<String,String> pwcMap=CommonCal.String2Map(pwcList);
 			for (int j = 0; j < txtList.size(); j++) {
 			//	int[] RArray=new int[18];
@@ -80,8 +80,8 @@ public class TestIncreBayes_df {
 				num=num+newD[j];
 				System.out.println(j+":"+newD[j]);
 			}
-			List<String> pcList2=IncreLearning.changePc(pcList,newD,num);
-			String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\pc.txt", pcList2);
+			List<String> pcList2=IncreLearning_df.changePc(pcList,newD,num);
+			String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\incre\\pc.txt", pcList2);
 			
 			//更新pwc
 			List<String> newDFList=Funcation_DF.string2tfjuzhen(trueList);	
@@ -97,8 +97,8 @@ public class TestIncreBayes_df {
 				newVList.add(""+txt[j]);
 				
 			}
-			String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\V.txt", newVList);
-			String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\pwc.txt", pwcList2);
+			String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\incre\\V.txt", newVList);
+			String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\incre\\pwc.txt", pwcList2);
 			
 			
 		}
@@ -112,9 +112,9 @@ public class TestIncreBayes_df {
 			}
 			 l.add(s);
 		}
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\error.txt", fList);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\fenlei.txt", l);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\null_feature.txt",nList );
+		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\error.txt", fList);
+		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\fenlei.txt", l);
+		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\null_feature.txt",nList );
 		System.out.println("Recall:"+r);
 		System.out.println("Precision:"+p);
 	}

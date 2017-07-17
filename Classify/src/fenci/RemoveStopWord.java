@@ -89,12 +89,12 @@ public class RemoveStopWord {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		 for (int i = 0; i < classTitle.length; i++) {
-		 	List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\jieba\\test_unremove\\"+classTitle[i]+".txt");
+		 for (int i = 1; i < 4; i++) {
+		 	List<String> txtList=Txt2String.readFileByLines("E:\\work\\animal\\fenci\\"+i+".txt");
 			//List<String> txtList=Txt2String.readFileByLines("E:\\ceping\\test_word.txt");
 		
 			List<String> endList=removeWord(txtList);
-		 String2Txt.writeFileByLines("E:\\ceping\\jieba_tijiao\\test\\"+classTitle[i]+".txt", endList);
+		 String2Txt.writeFileByLines("E:\\work\\animal\\remove\\"+i+".txt", endList);
 		//	String2Txt.writeFileByLines("E:\\ceping\\test_word_re.txt", endList);
 			
 	  }

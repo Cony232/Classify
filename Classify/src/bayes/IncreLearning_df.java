@@ -33,7 +33,7 @@ public class IncreLearning_df {
 	 * @param num 新增文本总量
 	 * @return
 	 */
-	public static List<String> changePc(List<String> pcList,int[] newD,int num) {  
+	public static List<String> changePc(List<String> pcList,double[] newD,double num) {  
 		double[] pcArray=String2Array.StrList2DouArray(pcList);
 		List<String> pcList2=new ArrayList<String>();
 		for (int i = 0; i < pcArray.length; i++) {	 
@@ -72,21 +72,21 @@ public class IncreLearning_df {
 			}
 		}
 		System.out.println(flag);
-		if(DFMap.size()>0){
-			for (String string : DFMap.keySet()) {
-				String df=DFMap.get(string);
-				String[] dfArray=df.split(",");
-				double[] df_Num=String2Array.StrArray2DouArray(dfArray);
-				double[] pwc_Num=new double[18];
-				for (int i = 0; i < pwc_Num.length; i++) {
-					pwc_Num[i]=(df_Num[i]+1)/(newD[i]);
-					//System.out.println(df_Num[i]+" "+newD[i]+" "+pwc_Num[i]);
-				}
-		
-				newPwc.add(string+":"+Double2String.Array2String(pwc_Num, 4));
-				
-			}
-		}
+//		if(DFMap.size()>0){
+//			for (String string : DFMap.keySet()) {
+//				String df=DFMap.get(string);
+//				String[] dfArray=df.split(",");
+//				double[] df_Num=String2Array.StrArray2DouArray(dfArray);
+//				double[] pwc_Num=new double[18];
+//				for (int i = 0; i < pwc_Num.length; i++) {
+//					pwc_Num[i]=(df_Num[i]+1)/(newD[i]);
+//					//System.out.println(df_Num[i]+" "+newD[i]+" "+pwc_Num[i]);
+//				}
+//		
+//				newPwc.add(string+":"+Double2String.Array2String(pwc_Num, 4));
+//				
+//			}
+//		}
 		return newPwc;
 	}
 	

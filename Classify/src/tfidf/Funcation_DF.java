@@ -44,7 +44,7 @@ public class Funcation_DF {
 			map=CommonCal.calculate_juzhen(dfList, map, i); 
 		} 
 		List<String> endlist=CommonCal.Map2List2(map);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba\\bayes_df\\incre\\df_juzhen.txt", endlist);
+		String2Txt.writeFileByLines("E:\\work\\Classify\\jieba\\bayes_df\\incre\\df_juzhen.txt", endlist);
 		return endlist;
 	}
 
@@ -53,18 +53,19 @@ public class Funcation_DF {
 
 //		//计算df
 
-//		for (int i = 0; i < 18; i++) {
-//			List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba_tijiao\\data_jieba_re\\"+classTitle[i]+".txt");
-//			HashMap<String, Integer> temp=df(list);
-//			List list1=Funcation_TF.Map2List1(temp);
-//			String2Txt.writeFileByLines("E:\\ceping\\jieba_tijiao\\df\\"+classTitle[i]+".txt", list1);
-//		}
+		for (int i = 1; i < 4; i++) {
+	//		List<String> list=Txt2String.readFileByLines("E:\\ceping\\jieba_tijiao\\data_jieba_re\\"+classTitle[i]+".txt");
+			List<String> list=Txt2String.readFileByLines("E:\\work\\animal\\remove\\"+i+".txt");
+			HashMap<String, Integer> temp=df(list);
+			List list1=Funcation_TF.Map2List1(temp);
+			String2Txt.writeFileByLines("E:\\work\\animal\\df\\"+i+".txt", list1);
+		}
 //		
-		//计算df矩阵
+//		//计算df矩阵
 		List<List<String>> txtList=new ArrayList<List<String>>();
 	    Map<String, int[]> map=new HashMap<String, int[]>();
-		for (int i = 0; i < 18; i++) {
-			List<String> list2=Txt2String.readFileByLines("E:\\ceping\\jieba_tijiao\\df\\"+classTitle[i]+".txt");
+		for (int i = 1; i < 4; i++) {
+			List<String> list2=Txt2String.readFileByLines("E:\\work\\animal\\df\\"+i+".txt");
 			txtList.add(list2);
 		}
 		for (int j = 0; j < txtList.size(); j++) {
@@ -72,7 +73,7 @@ public class Funcation_DF {
 			map=CommonCal.calculate_juzhen(txtList.get(j), map, j);
 		}
 		List<String> endlist=CommonCal.Map2List2(map);
-		String2Txt.writeFileByLines("E:\\ceping\\jieba_tijiao\\df_juzhen\\juzhen.txt", endlist);
+		String2Txt.writeFileByLines("E:\\work\\animal\\df_juzhen\\juzhen.txt", endlist);
 	    
 		
 		//拆分df_juzhen

@@ -53,7 +53,7 @@ public class CommonCal {
 				termlist[1]=termlist[2];
 			}
 			//String[] termlist=string.split(";");//我们;1 nlpir
-			int[] num=new int[18];
+			int[] num=new int[3];
 			if (!map.containsKey(termlist[0])) {//如果矩阵中不包含w,加入该w的df
 				 
 				num[i]=Integer.parseInt(termlist[1]);
